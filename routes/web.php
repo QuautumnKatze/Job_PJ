@@ -53,6 +53,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/post/edit/{id}', [PostController::class, 'edit'])->name('post.edit');
         Route::delete('/post/delete/{id}', [PostController::class, 'destroy'])->name('post.destroy');
         Route::post('/post/update/{id}', [PostController::class, 'update'])->name('post.update');
+
+        // File Manager
+        Route::group(['prefix' => 'file-manager', 'middleware' => ['web', 'auth:admin']], function () {
+            \UniSharp\LaravelFilemanager\Lfm::routes();
+        });
+
     });
 });
 
@@ -66,9 +72,5 @@ Route::post('/admin/login/submit', [AdminAuthController::class, 'login'])->name(
 Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
 
-// File Manager
-Route::group(['prefix' => 'file-manager', 'middleware' => ['web']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
 
 

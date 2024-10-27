@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <div class="input-group mb-3">
                                         <img id="holder" class="shadow rounded img-fluid h-50" style="width:100%">
-                                        <input id="image" class="form-control" type="hidden" name="image">
+                                        <input id="image" class="form-control" type="text" name="image" required hidden>
                                     </div>
                                     <span class="input-group-btn">
                                         <button type="button" id="lfm" data-input="image" data-preview="holder"
@@ -63,7 +63,7 @@
                                         <span id="basic-icon-default-fullname2" class="input-group-text"><i
                                                 class="bx bx-category"></i></span>
                                         <textarea class="form-control" name="shorten" id="exampleFormControlTextarea1"
-                                            rows="5" style="resize:none"></textarea>
+                                            rows="5" style="resize:none" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -78,12 +78,9 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label" for="">Nội dung bài viết</label>
+                            <label class="form-label" for="content">Nội dung bài viết</label>
                             <div class="input-group input-group-merge">
-                                <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                        class="bx bx-category"></i></span>
-                                <textarea class="form-control" name="shorten" id="content" rows="5"
-                                    style="resize:none"></textarea>
+                                <textarea class="form-control" name="content" id="content" required></textarea>
                             </div>
                         </div>
                 </div>
@@ -100,48 +97,35 @@
 @endsection
 @section('scripts')
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script>
-
-    $(document).ready(function () {
-        $('#content').summernote({
-            height: 300, // Đặt chiều cao của trình soạn thảo
-            callbacks: {
-                onImageUpload: function (files) {
-                    // Xử lý tải ảnh lên
-                    uploadImage(files[0]);
-                }
-            },
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
+    CKEDITOR.replace('content', {
+        filebrowserImageBrowseUrl: '/admin/file-manager?type=Images',
+        filebrowserBrowseUrl: '/admin/file-manager?type=Files',
+        filebrowserUploadUrl: '/admin/file-manager/upload?type=Images&_token={{ csrf_token() }}',
+        filebrowserImageUploadUrl: '/admin/file-manager/upload?type=Images&_token={{ csrf_token() }}',
+        height: 500,
+        width: '100%'
     });
 
-    $('#lfm').filemanager('image', { prefix: '/file-manager' });
     var initialUrl = $('#image').val();
     if (initialUrl) {
         $('#holder').attr('src', initialUrl);
     } else {
-        $('#holder').attr('src', '/storage/photos/post_title_image/no-image.jpg');
+        $('#holder').attr('src', '/storage/photos/shares/post_title_image/no-image.jpg');
     }
     $('#lfm').filemanager('image');
     $('#lfm').on('click', function () {
-        var route_prefix = '/file-manager';
+        var route_prefix = '/admin/file-manager';
         window.open(route_prefix + '?type=image', 'FileManager', 'width=700,height=400');
         window.SetUrl = function (items) {
             var url = items[0].url;
             $('#holder').attr('src', url);
-            $('#image').val(url);
+            var urlPush = url.replace("http://127.0.0.1:8000/", "");
+            $('#image').val(urlPush);
         };
     });
+
+
 </script>
 @endsection

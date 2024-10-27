@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\post_categories;
 use App\Models\posts;
+use Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -31,7 +32,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $createData = new posts();
+        $createData->title = $request->title;
+        $createData->post_category_id = $request->post_category_id;
+        $createData->image = $request->image;
+        $createData->shorten = $request->shorten;
+        $createData->status = $request->status;
+        $createData->content = $request->content;
+        $createData->admin_id = Auth::guard('admin')->user()->admin_id;
+
+        $createData->save();
+        return redirect()->route("post.index");
     }
 
     /**
@@ -63,6 +74,8 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $destroy = posts::find($id);
+        $destroy->delete();
+        return response()->json(['success' => true, 'message' => 'Xóa bài viết thành công']);
     }
 }
