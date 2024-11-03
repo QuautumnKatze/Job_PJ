@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\collab\CollabAuthController;
+use App\Http\Controllers\CollabController;
+use App\Http\Controllers\JobCategoryController;
+use App\Http\Controllers\RecruiterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostCategoryController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Middleware\CheckLoggedIn;
+use App\Http\Middleware\checkAdminLoggedIn;
 
 
 /*
@@ -34,7 +36,7 @@ Route::get('/home', function () {
 //--------------------------------------------------------------------------
 //ADMIN
 Route::prefix('admin')->group(function () {
-    Route::middleware('checkLoggedIn')->group(function () {
+    Route::middleware('checkAdminLoggedIn')->group(function () {
         //Home
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin');
 
@@ -54,6 +56,23 @@ Route::prefix('admin')->group(function () {
         Route::delete('/post/delete/{id}', [PostController::class, 'destroy'])->name('post.destroy');
         Route::post('/post/update/{id}', [PostController::class, 'update'])->name('post.update');
 
+        // ADMIN Job Category
+        Route::get('/job-categories', [JobCategoryController::class, 'index'])->name('jobC.index');
+        Route::get('/job-categories/create', [JobCategoryController::class, 'create'])->name('jobC.create');
+        Route::post('/job-categories/store', [JobCategoryController::class, 'store'])->name('jobC.store');
+        Route::get('/job-categories/edit/{id}', [JobCategoryController::class, 'edit'])->name('jobC.edit');
+        Route::delete('/job-categories/delete/{id}', [JobCategoryController::class, 'destroy'])->name('jobC.destroy');
+        Route::post('/job-categories/update/{id}', [JobCategoryController::class, 'update'])->name('jobC.update');
+
+        // ADMIN Recruiter
+        Route::get('/recruiter', [RecruiterController::class, 'index'])->name('recruiter.index');
+        Route::get('/recruiter-pending', [RecruiterController::class, 'showPending'])->name('recruiter.pending');
+        Route::get('/recruiter-canceled', [RecruiterController::class, 'showCanceled'])->name('recruiter.canceled');
+        Route::get('/recruiter-banlist', [RecruiterController::class, 'showBan'])->name('recruiter.ban');
+        Route::post('/recruiter-verify/{id}', [RecruiterController::class, 'verify'])->name('recruiter.verify');
+        Route::post('/recruiter-upgrade/{id}', [RecruiterController::class, 'upgrade'])->name('recruiter.upgrade');
+
+
         // File Manager
         Route::group(['prefix' => 'file-manager', 'middleware' => ['web', 'auth:admin']], function () {
             \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -72,5 +91,24 @@ Route::post('/admin/login/submit', [AdminAuthController::class, 'login'])->name(
 Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
 
+//--------------------------------------------------------------------------
+//COLLAB
+Route::prefix('collab')->group(function () {
+    Route::middleware('checkCollabLoggedIn')->group(function () {
+        //Home
+        Route::get('/home', [\App\Http\Controllers\collab\CollabController::class, 'index'])->name('collab');
+    });
+});
 
+Route::get('/collab/register', [CollabAuthController::class, 'showRegisterForm'])->name('collab.register');
+Route::post('/collab/check-email', [CollabAuthController::class, 'checkEmail'])->name('collab.check.email');
+Route::post('/collab/check-phone', [CollabAuthController::class, 'checkphone'])->name('collab.check.phone');
+Route::post('/collab/register/submit', [CollabAuthController::class, 'register'])->name('collab.register.submit');
+Route::get('/collab/login', [CollabAuthController::class, 'showLoginForm'])->name('collab.login');
+Route::post('/collab/login/submit', [CollabAuthController::class, 'login'])->name('collab.login.submit');
+Route::get('/collab/logout', [CollabAuthController::class, 'logout'])->name('collab.logout');
 
+//--------------------------------------------------------------------------
+//
+//-------------------------------------------------------------TEST
+Route::get('/collab/test-mail', [CollabAuthController::class, 'testMail'])->name('collab.testmail');

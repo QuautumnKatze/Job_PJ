@@ -121,7 +121,7 @@
         window.SetUrl = function (items) {
             var url = items[0].url;
             $('#holder').attr('src', url);
-            var urlPush = url.replace("http://127.0.0.1:8000/", "");
+            var urlPush = url.replace("http://127.0.0.1:8000", "");
             $('#image').val(urlPush);
         };
     });

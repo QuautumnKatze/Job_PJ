@@ -5,7 +5,7 @@
         <a href="{{route('postC.index')}}">
             <span class="text-muted fw-light">Quản lý danh mục bài viết/</span>
         </a>
-        Thêm mới
+        Chỉnh sửa
 
     </h4>
 
@@ -14,7 +14,7 @@
         <div class="col-xl">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Danh mục mới</h5>
+                    <h5 class="mb-0">Chỉnh sửa danh mục</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{route('postC.update', $postcategorydata->post_category_id)}}" method="post">
@@ -36,7 +36,7 @@
                                         class="bx bx-notepad"></i></span>
                                 <input type="text" class="form-control" name="description"
                                     id="basic-icon-default-fullname" value="{{$postcategorydata->description}}"
-                                    aria-label="" aria-describedby="basic-icon-default-fullname2" required />
+                                    aria-label="" aria-describedby="basic-icon-default-fullname2" />
                             </div>
                         </div>
                         <div class="mb-3">

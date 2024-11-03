@@ -3,11 +3,11 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-lg-6">
-            <h4 class="fw-bold py-3 mb-4">Quản lý danh mục bài viết</h4>
+            <h4 class="fw-bold py-3 mb-4">Quản lý danh mục tuyển dụng</h4>
         </div>
         <div class="col-lg-6 d-flex flex-row-reverse">
             <button class="btn">
-                <a class="btn btn-primary" href="{{route('postC.create')}}">Thêm mới</a>
+                <a class="btn btn-primary" href="{{route('jobC.create')}}">Thêm mới</a>
             </button>
         </div>
 
@@ -19,7 +19,7 @@
     <div class="card">
         <div class="row">
             <div class="col-lg-6">
-                <h5 class="card-header">Danh sách danh mục bài viết</h5>
+                <h5 class="card-header">Danh sách danh mục tuyển dụng</h5>
             </div>
             <div class="col-lg-5 my-auto ms-5">
                 <div class="nav-item d-flex align-items-center">
@@ -29,7 +29,6 @@
                 </div>
             </div>
         </div>
-
         <div class="table-responsive text-nowrap">
             <table id="table" class="table table-striped">
                 <thead>
@@ -45,10 +44,10 @@
                     @php
                         $i = 1
                     @endphp
-                    @foreach ($postcategorydata as $item)
-                                        <tr id="postC-{{$item->post_category_id}}">
+                    @foreach ($jobcategorydata as $item)
+                                        <tr id="jobC-{{$item->job_category_id}}">
                                             <td>{{$i++}}</td>
-                                            <td>{{$item->post_category_name}}</td>
+                                            <td>{{$item->job_category_name}}</td>
                                             <td>
                                                 {{$item->description}}
                                             </td>
@@ -68,10 +67,10 @@
                                                         <i class="bx bx-dots-vertical-rounded"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="{{route('postC.edit', $item->post_category_id)}}"><i
+                                                        <a class="dropdown-item" href="{{route('jobC.edit', $item->job_category_id)}}"><i
                                                                 class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
                                                         <button type="button" class="dropdown-item btn-delete"
-                                                            data-id="{{$item->post_category_id}}">
+                                                            data-id="{{$item->job_category_id}}">
                                                             <i class="bx bx-trash me-1"></i>
                                                             Xóa
                                                         </button>
@@ -113,14 +112,14 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/admin/post-categories/delete/" + id,
+                        url: "/admin/job-categories/delete/" + id,
                         type: "DELETE",
                         data: {
                             _token: '{{ csrf_token() }}'
                         },
                         success: function (response) {
                             toastr.success(response.message);
-                            $('#postC-' + id).remove();
+                            $('#jobC-' + id).remove();
                         },
                         error: function (xhr) {
                             toastr.error('Có lỗi khi xóa danh mục');

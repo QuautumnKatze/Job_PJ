@@ -2,8 +2,8 @@
 @section("admin_content")
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <a href="{{route('postC.index')}}">
-            <span class="text-muted fw-light">Quản lý danh mục bài viết/</span>
+        <a href="{{route('jobC.index')}}">
+            <span class="text-muted fw-light">Quản lý danh mục tuyển dụng/</span>
         </a>
         Thêm mới
 
@@ -17,14 +17,14 @@
                     <h5 class="mb-0">Danh mục mới</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('postC.store')}}" method="post">
+                    <form action="{{route('jobC.store')}}" method="post">
                         {{csrf_field()}}
                         <div class="mb-3">
                             <label class="form-label" for="">Tên danh mục</label>
                             <div class="input-group input-group-merge">
                                 <span id="basic-icon-default-fullname2" class="input-group-text"><i
                                         class="bx bx-category"></i></span>
-                                <input type="text" class="form-control" name="post_category_name"
+                                <input type="text" class="form-control" name="job_category_name"
                                     id="basic-icon-default-fullname" placeholder="Nhập tên danh mục" aria-label=""
                                     aria-describedby="basic-icon-default-fullname2" required />
                             </div>

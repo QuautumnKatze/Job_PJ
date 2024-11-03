@@ -1,37 +1,39 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\collab;
 
-use App\Models\admins;
+use App\Http\Controllers\Controller;
+use App\Mail\RecruiterVerificationMail;
+use App\Models\cities;
+use App\Models\recruiters;
 use Auth;
 use Illuminate\Http\Request;
+use Mail;
 use Validator;
 
-class AdminAuthController extends Controller
+class CollabAuthController extends Controller
 {
+
     public function showLoginForm()
     {
-        return view('admin.login'); // Tạo một trang đăng nhập cho admin
+        return view('collab.login'); // Tạo một trang đăng nhập cho admin
     }
 
     public function login(Request $request)
     {
         // Xác thực dữ liệu đầu vào
         $request->validate([
-            'login' => 'required',
+            'email' => 'required',
             'password' => 'required',
         ]);
 
-        // Kiểm tra xem input có phải là email hay username
-        $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
-
-        // Tìm người dùng theo email hoặc username
-        $user = admins::where($loginField, $request->login)->first();
+        // Tìm người dùng theo email 
+        $user = recruiters::where('email', $request->email)->first();
 
         // Kiểm tra xem người dùng có tồn tại và mật khẩu có đúng không
         if ($user && $user->password == md5($request->password)) {
             // Đăng nhập thành công
-            Auth::guard('admin')->login($user);
+            Auth::guard('collab')->login($user);
 
             return response()->json([
                 'success' => true,
@@ -51,54 +53,57 @@ class AdminAuthController extends Controller
 
     public function logout()
     {
-        Auth::guard('admin')->logout();
-        return redirect('/admin/login')->with('success', 'Đã đăng xuất.');
+        Auth::guard('collab')->logout();
+        return redirect('/collab/login')->with('success', 'Đã đăng xuất.');
     }
 
     public function showRegisterForm()
     {
-        return view("admin.register");
+        $citydata = cities::all();
+        return view("collab.register", compact("citydata"));
     }
 
     public function checkEmail(Request $request)
     {
         $email = $request->input('email');
-        $emailExists = admins::where('email', $email)->exists();
+        $emailExists = recruiters::where('email', $email)->exists();
 
         return response()->json(['emailExists' => $emailExists]);
     }
-
-    public function checkUsername(Request $request)
+    public function checkPhone(Request $request)
     {
-        $user_name = $request->input('user_name');
-        $userNameExists = admins::where('user_name', $user_name)->exists();
+        $phone = $request->input('phone');
+        $phoneExists = recruiters::where('phone', $phone)->exists();
 
-        return response()->json(['userNameExists' => $userNameExists]);
+        return response()->json(['phoneExists' => $phoneExists]);
     }
 
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_name' => 'required|unique:admins|min:4',
+            'email' => 'required|unique:recruiters|min:7',
             'password' => 'required|min:3',
-            'full_name' => 'required|min:6',
-            'email' => 'required|unique:admins|min:7',
+            'phone' => 'required|min:10',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
-        $registerData = new admins();
-        $registerData->user_name = $request->user_name;
+        $registerData = new recruiters();
+        $registerData->email = $request->email;
         $registerData->password = md5($request->password);
         $registerData->full_name = $request->full_name;
-        $registerData->email = $request->email;
+        $registerData->phone = $request->phone;
+        $registerData->company_name = $request->company_name;
+        $registerData->city_id = $request->city_id;
+        $registerData->location = $request->location;
         $registerData->avatar = "/storage/photos/shares/avatar/default-avatar.jpg";
+        $registerData->status = 0;
+        $registerData->expired_date = null;
         $registerData->save();
+        //Gửi email xác minh
+        Mail::to('manhphuc2003@gmail.com')->send(new RecruiterVerificationMail($registerData));
+
         return response()->json(['success' => 'Đăng ký thành công']);
     }
-
-
-
 }

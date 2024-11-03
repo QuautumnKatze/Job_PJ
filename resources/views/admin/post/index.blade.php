@@ -17,9 +17,20 @@
 
     <!-- Striped Rows -->
     <div class="card">
-        <h5 class="card-header">Striped rows</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <h5 class="card-header">Danh sách bài viết</h5>
+            </div>
+            <div class="col-lg-5 my-auto ms-5">
+                <div class="nav-item d-flex align-items-center">
+                    <i class="bx bx-search fs-4 lh-0"></i>
+                    <input type="text" id="searchInput" class="form-control border-0 shadow-none"
+                        placeholder="Tìm kiếm..." aria-label="Search..." />
+                </div>
+            </div>
+        </div>
         <div class="table-responsive text-nowrap">
-            <table class="table table-striped">
+            <table id="table" class="table table-striped">
                 <thead>
                     <tr>
                         <th>STT</th>
@@ -27,6 +38,7 @@
                         <th>Tiêu đề</th>
                         <th>Tác giả</th>
                         <th>Sửa đổi lần cuối</th>
+                        <th>Trạng thái</th>
                         <th>Chức năng</th>
                     </tr>
                 </thead>
@@ -35,34 +47,44 @@
                         $i = 1
                     @endphp
                     @foreach ($postdata as $item)
-                        <tr id="post-{{$item->post_id}}">
-                            <td>{{$i++}}</td>
-                            <td>
-                                <img src="{{asset($item->image)}}" class="w-25" />
-                            </td>
-                            <td>{{$item->title}}</td>
-                            <td>
-                                {{$item->admin_id}}
-                            </td>
-                            <td>
-                                {{$item->updated_at}}
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                        <button type="button" class="dropdown-item btn-delete" data-id="{{$item->post_id}}">
-                                            <i class="bx bx-trash me-1"></i>
-                                            Delete
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                        <tr id="post-{{$item->post_id}}">
+                                            <td>{{$i++}}</td>
+                                            <td>
+                                                <img src="{{asset($item->image)}}" class="w-25" />
+                                            </td>
+                                            <td>{{$item->title}}</td>
+                                            <td>
+                                                {{$item->admin_id}}
+                                            </td>
+                                            <td>
+                                                {{$item->updated_at}}
+                                            </td>
+                                            <td>
+                                                @php
+                                                    if ($item->status == 1) {
+                                                        echo '<i class="text-success menu-icon tf-icons bx bx-check-circle"></i>';
+                                                    } else {
+                                                        echo '<i class="text-danger menu-icon tf-icons bx bx-x-circle"></i>';
+                                                    }
+                                                @endphp
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="{{route('post.edit', $item->post_id)}}"><i
+                                                                class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
+                                                        <button type="button" class="dropdown-item btn-delete" data-id="{{$item->post_id}}">
+                                                            <i class="bx bx-trash me-1"></i>
+                                                            Xóa
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -92,7 +114,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/post/delete/" + id,
+                        url: "/admin/post/delete/" + id,
                         type: "DELETE",
                         data: {
                             _token: '{{ csrf_token() }}'
@@ -113,6 +135,22 @@
             $("#myAlert").fadeOut(500);
         }, 3500);
     })
+
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#table tbody tr");
+
+        rows.forEach(row => {
+            let name = row.cells[2].textContent.toLowerCase();
+            let author = row.cells[3].textContent.toLowerCase();
+
+            if (name.includes(filter) || author.includes(filter)) {
+                row.style.display = "";  // Hiển thị dòng phù hợp
+            } else {
+                row.style.display = "none";  // Ẩn dòng không phù hợp
+            }
+        });
+    });
 </script>
 
 @endsection

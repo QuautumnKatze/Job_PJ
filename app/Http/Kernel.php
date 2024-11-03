@@ -66,7 +66,8 @@ class Kernel extends HttpKernel
     ];
 
     protected $routeMiddleware = [
-        'checkLoggedIn' => \App\Http\Middleware\CheckLoggedIn::class,
+        'checkAdminLoggedIn' => \App\Http\Middleware\checkAdminLoggedIn::class,
+        'checkCollabLoggedIn' => \App\Http\Middleware\checkCollabLoggedIn::class,
     ];
 
 }

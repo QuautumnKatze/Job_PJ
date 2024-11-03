@@ -148,24 +148,68 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="/file-manager" class="menu-link">
+              <a href="/admin/file-manager?type=file" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Quản lý file</div>
+                <div data-i18n="Analytics">QL file</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="/admin/file-manager?type=image" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">QL hình ảnh</div>
               </a>
             </li>
 
             <li class="menu-item">
               <a href="{{route('postC.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Quản lý danh mục bài viết</div>
+                <div data-i18n="Analytics">QL danh mục bài viết</div>
               </a>
             </li>
 
             <li class="menu-item">
               <a href="{{route('post.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Quản lý bài viết</div>
+                <div data-i18n="Analytics">QL bài viết</div>
               </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="{{route('jobC.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">QL danh mục tuyển dụng</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div data-i18n="Layouts">QL nhà tuyển dụng</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{route('recruiter.index')}}" class="menu-link">
+                    <div data-i18n="Without menu">Danh sách</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{route('recruiter.pending')}}" class="menu-link">
+                    <div data-i18n="Without menu">Đang chờ xác minh</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{route('recruiter.canceled')}}" class="menu-link">
+                    <div data-i18n="Without menu">Đã bị hủy</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="layouts-without-menu.html" class="menu-link">
+                    <div data-i18n="Without menu">Danh sách cấm</div>
+                  </a>
+                </li>
+                
+              </ul>
             </li>
 
             <!-- Layouts -->

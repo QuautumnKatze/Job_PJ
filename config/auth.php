@@ -41,9 +41,19 @@ return [
             'provider' => 'users',
         ],
 
+        'home' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+        ],
+
+        'collab' => [
+            'driver' => 'session',
+            'provider' => 'recruiters',
         ],
 
     ],
@@ -74,6 +84,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\admins::class,
+        ],
+
+        'recruiters' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\recruiters::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

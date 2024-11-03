@@ -14,6 +14,6 @@ class job_categories extends Model
         "status"
     ];
     protected $primaryKey = "job_category_id";
-    protected $table = "job_category";
+    protected $table = "job_categories";
     public $timestamps = false;
 }

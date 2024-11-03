@@ -56,9 +56,11 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($post_id)
     {
-        //
+        $postdata = posts::find($post_id);
+        $postcategorydata = post_categories::all();
+        return view("admin.post.edit", compact("postdata", "postcategorydata"));
     }
 
     /**
@@ -66,7 +68,16 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $updateData = posts::find($id);
+        $updateData->title = $request->title;
+        $updateData->post_category_id = $request->post_category_id;
+        $updateData->image = $request->image;
+        $updateData->shorten = $request->shorten;
+        $updateData->status = $request->status;
+        $updateData->content = $request->content;
+
+        $updateData->save();
+        return redirect()->route('post.index');
     }
 
     /**

@@ -234,7 +234,7 @@
                 toastr.success(response.msg);
                 setTimeout(function () {
                   window.location.href = '/admin/dashboard';
-                }, 2000);
+                }, 1000);
               }
             },
             error: function (response) {
