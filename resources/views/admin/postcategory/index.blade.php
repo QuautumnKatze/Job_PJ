@@ -82,6 +82,8 @@
                     @endforeach
                 </tbody>
             </table>
+            <div id="pagination-controls" class="d-flex justify-content-end my-3 me-3"></div>
+
         </div>
     </div>
     <!--/ Striped Rows -->

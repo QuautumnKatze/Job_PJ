@@ -41,7 +41,7 @@ class RecruiterController extends Controller
         if ($account) {
             // Cập nhật trạng thái xác minh
             $account->status = 1;
-            $account->expired_date = now()->addDays(7);
+            $account->expired_date = now()->addDays(2);
             $account->save();
 
             return response()->json(['success' => true, 'message' => 'Phê duyệt xác minh thành công']);

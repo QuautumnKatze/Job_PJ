@@ -83,7 +83,7 @@ class CollabAuthController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|unique:recruiters|min:7',
             'password' => 'required|min:3',
-            'phone' => 'required|min:10',
+            'phone' => 'required|unique:recruiters|min:10',
         ]);
 
         if ($validator->fails()) {
@@ -99,7 +99,7 @@ class CollabAuthController extends Controller
         $registerData->location = $request->location;
         $registerData->avatar = "/storage/photos/shares/avatar/default-avatar.jpg";
         $registerData->status = 0;
-        $registerData->expired_date = null;
+        $registerData->expired_date = now();
         $registerData->save();
         //Gửi email xác minh
         Mail::to('manhphuc2003@gmail.com')->send(new RecruiterVerificationMail($registerData));

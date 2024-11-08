@@ -75,7 +75,7 @@
                             <span></span>
                         </div>
 
-                        <button class="btn btn-login" type="submit">Đăng ký</button>
+                        <button class="btn btn-login" id="submitBtn" type="submit">Đăng ký</button>
                         <span>Đã có tài khoản? <a href="{{route('collab.login')}}"> Đăng nhập</a></span>
                     </form>
                 </div>
@@ -292,6 +292,9 @@
 
                 $('#registerForm').on('submit', function (e) {
                     e.preventDefault();
+                    // Disable all inputs and button to prevent multiple submissions
+                    $('#registerForm').find('input, select').attr('readonly', true);
+                    $('#submitBtn').addClass('bg-secondary').attr('disabled', true);
                     $.ajax({
                         url: $(this).attr('action'),
                         method: 'POST',
@@ -302,7 +305,7 @@
                                 // Chuyển hướng đến trang đăng nhập sau 2 giây
                                 setTimeout(function () {
                                     window.location.href = "/collab/login";
-                                }, 2000);
+                                }, 1000);
                             }
                         },
                         error: function (response) {
@@ -329,10 +332,16 @@
                                 toastr.error('Đăng ký thất bại. Vui lòng thử lại.');
                             }
                             $('#registerForm')[0].reset();
-                        }
+                        },
+                        // complete: function () {
+                        //     // Mở lại các input và nút sau khi tác vụ hoàn thành
+                        //     $('#registerForm').find('input, button, select').attr('disabled', false);
+                        // }
                     });
                 });
             });
+
+            
         </script>
     </div>
 </body>

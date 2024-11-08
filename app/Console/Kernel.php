@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('recruiter:update-status')->hourly();
+        $schedule->command('recruiter:update-status')->everyMinute();
     }
 
     /**

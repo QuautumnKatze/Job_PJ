@@ -54,7 +54,7 @@
                                                 } else if ($item->status == 2) {
                                                     echo '<td id="status-2"><div  id="statusOf-' . $item->recruiter_id . '" ><a class="btn bg-secondary text-white" href=""><i class="text-white menu-icon tf-icons bx bx-no-entry"></i> Hết hạn</a></div></td>';
                                                 } else if ($item->status == 3) {
-                                                    echo '<td id="status-2"><div  id="statusOf-' . $item->recruiter_id . '" ><a class="btn bg-primary text-white" href=""><i class="text-white menu-icon tf-icons bx bx-diamond"></i> Premium</a></div></td>';
+                                                    echo '<td id="status-3"><div  id="statusOf-' . $item->recruiter_id . '" ><a class="btn bg-primary text-white" href=""><i class="text-white menu-icon tf-icons bx bx-diamond"></i> Premium</a></div></td>';
                                                 }
                                             @endphp
                                             <td>
@@ -81,6 +81,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <div id="pagination-controls" class="d-flex justify-content-end my-3 me-3"></div>
         </div>
     </div>
     <!--/ Striped Rows -->
@@ -132,6 +133,12 @@
                 }
             } else if (filter.startsWith("+expired")) {
                 if (statusCell === `status-2`) {
+                    row.style.display = ""; // Hiển thị nếu id cột status khớp
+                } else {
+                    row.style.display = "none"; // Ẩn nếu không khớp
+                }
+            } else if (filter.startsWith("+premium")) {
+                if (statusCell === `status-3`) {
                     row.style.display = ""; // Hiển thị nếu id cột status khớp
                 } else {
                     row.style.display = "none"; // Ẩn nếu không khớp
@@ -221,7 +228,6 @@
             $("#myAlert").fadeOut(500);
         }, 3500);
     })
-
 </script>
 
 @endsection

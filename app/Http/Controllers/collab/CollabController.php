@@ -15,6 +15,16 @@ class CollabController extends Controller
         return view('collab.home');
     }
 
+    public function showExpired()
+    {
+        return view('collab.expired');
+    }
+
+    public function ShowUnverified()
+    {
+        return view('collab.unverified');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

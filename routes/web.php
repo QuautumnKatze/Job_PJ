@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\collab\CollabAuthController;
-use App\Http\Controllers\CollabController;
+use \App\Http\Controllers\collab\CollabController;
 use App\Http\Controllers\JobCategoryController;
 use App\Http\Controllers\RecruiterController;
 use Illuminate\Support\Facades\Route;
@@ -95,8 +95,13 @@ Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('logou
 //COLLAB
 Route::prefix('collab')->group(function () {
     Route::middleware('checkCollabLoggedIn')->group(function () {
-        //Home
-        Route::get('/home', [\App\Http\Controllers\collab\CollabController::class, 'index'])->name('collab');
+        Route::middleware('checkCollabStatus')->group(function () {
+            Route::get('/home', [CollabController::class, 'index'])->name('collab');
+        });
+
+        Route::get('/expired', [CollabController::class, 'showExpired'])->name('collab.expired');
+        Route::get('/unverified', [CollabController::class, 'showUnverified'])->name('collab.unverified');
+
     });
 });
 

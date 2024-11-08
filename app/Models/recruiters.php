@@ -23,6 +23,7 @@ class recruiters extends Authenticatable
         "employee_count",
         "website",
         "status",
+        "expired_date"
     ];
     protected $primaryKey = "recruiter_id";
     protected $table = "recruiters";

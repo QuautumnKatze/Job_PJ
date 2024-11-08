@@ -14,16 +14,16 @@ class UpdateRecruiterStatus extends Command
 
     public function handle()
     {
-        $today = Carbon::today();
+        $now = Carbon::now();
 
         // Cập nhật trạng thái cho người dùng hết hạn miễn phí
         recruiters::where('status', 1)
-            ->where('expired_date', '<', $today)
+            ->where('expired_date', '<', $now)
             ->update(['status' => 2]);
 
         // Cập nhật trạng thái cho người dùng premium hết hạn
         recruiters::where('status', 3)
-            ->where('expired_date', '<', $today)
+            ->where('expired_date', '<', $now)
             ->update(['status' => 2]);
 
         $this->info('Recruiter statuses updated successfully.');

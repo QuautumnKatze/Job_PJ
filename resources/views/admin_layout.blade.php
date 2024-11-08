@@ -68,6 +68,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
   </head>
 
@@ -433,7 +434,76 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+    <script>
+      $(document).ready(function () {
+        const rowsPerPage = 10; // Số bản ghi trên mỗi trang
+        let currentPage = 1;
+        const $table = $('#table');
+        const $rows = $table.find('tbody tr');
+        const totalPages = Math.ceil($rows.length / rowsPerPage);
+
+        function displayRows(page) {
+          const start = (page - 1) * rowsPerPage;
+          const end = start + rowsPerPage;
+
+          $rows.hide(); // Ẩn tất cả các dòng
+          $rows.slice(start, end).show(); // Hiển thị các dòng của trang hiện tại
+        }
+
+        function setupPagination() {
+          $('#pagination-controls').empty(); // Xóa điều khiển phân trang trước đó
+
+          const pagination = $('<ul class="pagination  justify-content-end"></ul>'); // Sử dụng lớp Bootstrap 'pagination'
+
+          // Tạo nút "Trang Trước"
+          if (currentPage > 1) {
+            pagination.append(`<li class="page-item"><a class="page-link prev" href="#">Trang Trước</a></li>`);
+          }
+
+          // Tạo các nút số trang
+          for (let i = 1; i <= totalPages; i++) {
+            pagination.append(`
+                <li class="page-item ${i === currentPage ? 'active' : ''}">
+                    <a class="page-link page-num" href="#" data-page="${i}">${i}</a>
+                </li>
+            `);
+          }
+
+          // Tạo nút "Trang Sau"
+          if (currentPage < totalPages) {
+            pagination.append(`<li class="page-item"><a class="page-link next" href="#">Trang Sau</a></li>`);
+          }
+
+          $('#pagination-controls').append(pagination); // Thêm danh sách phân trang vào thẻ div
+        }
+
+        function updatePagination() {
+          displayRows(currentPage); // Hiển thị các dòng của trang hiện tại
+          setupPagination(); // Cập nhật nút phân trang
+        }
+
+        // Xử lý sự kiện khi nhấn nút phân trang
+        $('#pagination-controls').on('click', '.page-link', function (e) {
+          e.preventDefault();
+
+          const page = $(this).data('page');
+          if (page) {
+            currentPage = page;
+          } else if ($(this).hasClass('prev')) {
+            currentPage = Math.max(currentPage - 1, 1);
+          } else if ($(this).hasClass('next')) {
+            currentPage = Math.min(currentPage + 1, totalPages);
+          }
+
+          updatePagination();
+        });
+
+        // Khởi động hiển thị trang đầu tiên
+        updatePagination();
+      });
+
+
+    </script>
     @yield("scripts")
   </body>
 </html>
