@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RecruiterVerificationMail;
 use App\Models\accounts;
 use App\Models\admins;
 use App\Models\cities;
@@ -9,6 +10,7 @@ use App\Models\recruiters;
 use App\Models\users;
 use Auth;
 use Illuminate\Http\Request;
+use Mail;
 use Validator;
 
 class AuthController extends Controller
@@ -258,6 +260,10 @@ class AuthController extends Controller
         $recruiterData->status = 0;
         $recruiterData->expire_date = now();
         $recruiterData->save();
+
+        $account = accounts::where('account_id', $accountId)->first();
+
+        Mail::to('manhphuc2003@gmail.com')->send(new RecruiterVerificationMail($account));
 
         return response()->json(['success' => 'Đăng ký thành công']);
     }

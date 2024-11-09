@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\accounts;
 use App\Models\recruiters;
 use Illuminate\Http\Request;
 
@@ -12,37 +13,37 @@ class RecruiterController extends Controller
      */
     public function index()
     {
-        $recruiterdata = recruiters::all();
+        $recruiterdata = accounts::where('role', 'recruiter')->get();
         return view('admin.recruiter.index', compact('recruiterdata'));
     }
 
     public function showPending()
     {
-        $recruiterdata = recruiters::where('status', 0)->where('is_verified', 0);
-        return view('admin.recruiter.index', compact('recruiterdata'));
+        //
     }
 
     public function showCanceled()
     {
-        $recruiterdata = recruiters::where('status', 2)->where('is_verified', 0);
-        return view('admin.recruiter.index', data: compact('recruiterdata'));
+        //
     }
 
     public function showBan()
     {
-        $recruiterdata = recruiters::where('status', 0)->where('is_verified', 1);
-        return view('admin.recruiter.index', compact('recruiterdata'));
+        //
     }
 
     public function verify($id)
     {
         // Tìm tài khoản theo ID
-        $account = recruiters::find($id); // Hoặc model bạn đang sử dụng
+        $account = accounts::find($id); // Hoặc model bạn đang sử dụng
         if ($account) {
+            if ($account->role !== 'recruiter') {
+                return response()->json(['message' => 'Invalid account type for upgrade.'], 400);
+            }
             // Cập nhật trạng thái xác minh
-            $account->status = 1;
-            $account->expired_date = now()->addDays(2);
-            $account->save();
+            $account->recruiter->status = 1;
+            $account->recruiter->expire_date = now()->addDays(2);
+            $account->recruiter->save();
 
             return response()->json(['success' => true, 'message' => 'Phê duyệt xác minh thành công']);
         }
@@ -53,14 +54,17 @@ class RecruiterController extends Controller
     public function upgrade($id)
     {
         // Tìm tài khoản theo ID
-        $account = recruiters::find($id); // Hoặc model bạn đang sử dụng
+        $account = accounts::find($id); // Hoặc model bạn đang sử dụng
         if ($account) {
+            if ($account->role !== 'recruiter') {
+                return response()->json(['message' => 'Invalid account type for upgrade.'], 400);
+            }
             // Cập nhật trạng thái xác minh
-            $account->status = 3;
-            $account->expired_date = now()->addDays(30);
-            $account->save();
+            $account->recruiter->status = 3;
+            $account->recruiter->expire_date = now()->addDays(30);
+            $account->recruiter->save();
 
-            return response()->json(['success' => true, 'message' => 'Nâng cấp lên Premium thành công']);
+            return response()->json(['success' => true, 'message' => 'Nâng cấp Premium thành công']);
         }
 
         return response()->json(['error' => true, 'message' => 'Tài khoản không tồn tại.'], 404);

@@ -43,18 +43,18 @@
                 <tbody class="table-border-bottom-0">
                     @foreach ($recruiterdata as $item)
                                         <tr>
-                                            <td>{{$item->recruiter_id}}</td>
-                                            <td>{{$item->company_name}}</td>
+                                            <td>{{$item->account_id}}</td>
+                                            <td>{{$item->recruiter->company_name}}</td>
                                             <td>{{$item->full_name}}</td>
                                             @php
-                                                if ($item->status == 0) {
-                                                    echo '<td id="status-0"><div  id="statusOf-' . $item->recruiter_id . '" ><a class="btn bg-warning text-white" href=""><i class="text-white menu-icon tf-icons bx bx-question-mark"></i> Chưa xác minh</a></div></td>';
-                                                } else if ($item->status == 1) {
-                                                    echo '<td id="status-1"><div  id="statusOf-' . $item->recruiter_id . '" ><a class="btn bg-success text-white" href=""><i class="text-white menu-icon tf-icons bx bx-check-shield"></i> Đã xác minh</a></div></td>';
-                                                } else if ($item->status == 2) {
-                                                    echo '<td id="status-2"><div  id="statusOf-' . $item->recruiter_id . '" ><a class="btn bg-secondary text-white" href=""><i class="text-white menu-icon tf-icons bx bx-no-entry"></i> Hết hạn</a></div></td>';
-                                                } else if ($item->status == 3) {
-                                                    echo '<td id="status-3"><div  id="statusOf-' . $item->recruiter_id . '" ><a class="btn bg-primary text-white" href=""><i class="text-white menu-icon tf-icons bx bx-diamond"></i> Premium</a></div></td>';
+                                                if ($item->recruiter->status == 0) {
+                                                    echo '<td id="status-0"><div  id="statusOf-' . $item->account_id . '" ><a class="btn bg-warning text-white" href=""><i class="text-white menu-icon tf-icons bx bx-question-mark"></i> Chưa xác minh</a></div></td>';
+                                                } else if ($item->recruiter->status == 1) {
+                                                    echo '<td id="status-1"><div  id="statusOf-' . $item->account_id . '" ><a class="btn bg-success text-white" href=""><i class="text-white menu-icon tf-icons bx bx-check-shield"></i> Đã xác minh</a></div></td>';
+                                                } else if ($item->recruiter->status == 2) {
+                                                    echo '<td id="status-2"><div  id="statusOf-' . $item->account_id . '" ><a class="btn bg-secondary text-white" href=""><i class="text-white menu-icon tf-icons bx bx-no-entry"></i> Hết hạn</a></div></td>';
+                                                } else if ($item->recruiter->status == 3) {
+                                                    echo '<td id="status-3"><div  id="statusOf-' . $item->account_id . '" ><a class="btn bg-primary text-white" href=""><i class="text-white menu-icon tf-icons bx bx-diamond"></i> Premium</a></div></td>';
                                                 }
                                             @endphp
                                             <td>
@@ -67,11 +67,11 @@
                                                         <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Xem chi
                                                             tiết</a>
                                                         @php
-                                                            if ($item->status == 0) {
-                                                                echo '<div id="functionOf-' . $item->recruiter_id . '"><button type="button" class="dropdown-item btn-verify" data-id="' . $item->recruiter_id . '"><i class="bx bx-trash me-1"></i>Xác minh</button></div>';
+                                                            if ($item->recruiter->status == 0) {
+                                                                echo '<div id="functionOf-' . $item->account_id . '"><button type="button" class="dropdown-item btn-verify" data-id="' . $item->account_id . '"><i class="bx bx-trash me-1"></i>Xác minh</button></div>';
                                                             }
-                                                            if ($item->status == 1 || $item->status == 2) {
-                                                                echo '<div id="functionOf-' . $item->recruiter_id . '"><button type="button" class="dropdown-item btn-upgrade" data-id="' . $item->recruiter_id . '"><i class="bx bx-trash me-1"></i>Nâng Premium</button></div>';
+                                                            if ($item->recruiter->status == 1 || $item->recruiter->status == 2) {
+                                                                echo '<div id="functionOf-' . $item->account_id . '"><button type="button" class="dropdown-item btn-upgrade" data-id="' . $item->account_id . '"><i class="bx bx-trash me-1"></i>Nâng Premium</button></div>';
                                                             }
                                                         @endphp
                                                     </div>
