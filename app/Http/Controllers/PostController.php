@@ -39,7 +39,7 @@ class PostController extends Controller
         $createData->shorten = $request->shorten;
         $createData->status = $request->status;
         $createData->content = $request->content;
-        $createData->admin_id = Auth::guard('admin')->user()->admin_id;
+        $createData->account_id = Auth::user()->account_id;
 
         $createData->save();
         return redirect()->route("post.index");

@@ -48,8 +48,8 @@
                         <li><a href="blog.html">Blog</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li><a href="login.html"><i class="fa fa-pencil" aria-hidden="true"></i>SignUp</a></li>
-                        <li><a href="pricing.html"><i class="fa fa-sign-in" aria-hidden="true"></i>Pricing</a></li>
+                        <li><a href="{{route('collab.logout')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng
+                                xuất</a></li>
                         <li class="left-br"><a href="{{route('collab.create-job')}}" class="signin">Đăng tin tuyển
                                 dụng</a></li>
                     </ul>

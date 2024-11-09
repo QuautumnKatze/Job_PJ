@@ -13,7 +13,7 @@ class posts extends Model
         "post_category_id",
         "image",
         "shorten",
-        "admin_id",
+        "accoun_id",
         "created_at",
         "updated_at",
         "content",

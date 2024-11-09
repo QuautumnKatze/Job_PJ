@@ -16,13 +16,12 @@ class checkAdminLoggedIn
      */
     public function handle(Request $request, Closure $next)
     {
-        // Kiểm tra xem admin đã đăng nhập chưa
-        if (!Auth::guard('admin')->check()) {
-            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập admin
-            return redirect('/admin/login')->with('error', 'Bạn cần phải đăng nhập.');
+        // Kiểm tra nếu người dùng đã đăng nhập và có vai trò là 'admin'
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return $next($request); // Cho phép truy cập
         }
 
-        // Nếu đã đăng nhập, tiếp tục xử lý request
-        return $next($request);
+        // Nếu không phải admin hoặc chưa đăng nhập, chuyển hướng đến trang login
+        return redirect()->route('login')->with('error', 'Bạn không có quyền truy cập.');
     }
 }

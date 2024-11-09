@@ -35,7 +35,7 @@
                     <a href="index-2.html"><img src="{{asset('/img/logo.png')}}" class="img-responsive" alt=""></a>
                     <form id="loginForm" action="{{route('collab.login.submit')}}" method="POST">
                         @csrf
-                        <input type="text" name="email" class="form-control" placeholder="Email đăng nhập" required>
+                        <input type="text" name="login" class="form-control" placeholder="Email đăng nhập" required>
                         <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
                         <button class="btn btn-login" type="submit">Đăng nhập</button>
                         <span>Bạn chưa có tài khoản? <a href="{{route('collab.register')}}"> Tạo một tài khoản nhà tuyển

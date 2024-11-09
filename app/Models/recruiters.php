@@ -11,21 +11,23 @@ class recruiters extends Authenticatable
 {
     use HasFactory;
     protected $fillable = [
-        "email",
-        "password",
-        "full_name",
+        "account_id",
         "phone",
         "comparny_name",
         "city_id",
         "location",
         "introduction",
-        "avatar",
         "employee_count",
         "website",
         "status",
-        "expired_date"
+        "expire_date"
     ];
     protected $primaryKey = "recruiter_id";
     protected $table = "recruiters";
     public $timestamps = false;
+
+    public function account()
+    {
+        return $this->belongsTo(accounts::class);
+    }
 }

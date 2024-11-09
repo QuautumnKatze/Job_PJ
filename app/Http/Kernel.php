@@ -69,6 +69,8 @@ class Kernel extends HttpKernel
         'checkAdminLoggedIn' => \App\Http\Middleware\checkAdminLoggedIn::class,
         'checkCollabLoggedIn' => \App\Http\Middleware\checkCollabLoggedIn::class,
         'checkCollabStatus' => \App\Http\Middleware\checkCollabStatus::class,
+        'setLfmConfig' => \App\Http\Middleware\SetLfmConfig::class,
+        'check.lfm.auth' => \App\Http\Middleware\CheckLfmAuth::class,
     ];
 
 }

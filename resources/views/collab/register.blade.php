@@ -37,6 +37,11 @@
                     <form id="registerForm" action="{{route('collab.register.submit')}}" method="POST">
                         @csrf
                         <div class="mb-2">
+                            <input type="text" class="form-control" style="margin-bottom:0" id="user_name"
+                                name="user_name" placeholder="Nhập tên tài khoản" required />
+                            <span id="userNameFeedback" style="margin-bottom:12px; margin-top:0"></span>
+                        </div>
+                        <div class="mb-2">
                             <input type="email" class="form-control" style="margin-bottom:0" id="email" name="email"
                                 placeholder="Nhập email của bạn" required />
                             <span id="emailFeedback" style="margin-bottom:12px; margin-top:0"></span>
@@ -272,6 +277,33 @@
                     }
                 });
 
+                $('#user_name').on('input', function () {
+                    var user_name = $(this).val();
+                    if (user_name.length > 0) {
+                        $.ajax({
+                            url: '{{ route('collab.check.username') }}',
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                user_name: user_name
+                            },
+                            success: function (response) {
+                                if (user_name.length === 0) {
+                                    $('#userNameFeedback').text('');
+                                } else if (user_name.length < 4) {
+                                    $('#userNameFeedback').text('Tên đăng nhập phải nhiều hơn 3 ký tự').css('color', 'red');
+                                } else if (response.userNameExists) {
+                                    $('#userNameFeedback').text('Tên đăng nhập này đã tồn tại').css('color', 'red');
+                                } else {
+                                    $('#userNameFeedback').text('Tên đăng nhập này có thể sử dụng').css('color', 'green');
+                                }
+                            }
+                        });
+                    } else {
+                        $('#userNameFeedback').text('');
+                    }
+                });
+
                 $('#phone').on('keydown', function (e) {
                     // Lấy mã phím đã nhấn
                     const key = e.keyCode;
@@ -341,7 +373,7 @@
                 });
             });
 
-            
+
         </script>
     </div>
 </body>

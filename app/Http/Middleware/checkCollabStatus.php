@@ -16,19 +16,22 @@ class checkCollabStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Lấy người dùng đã đăng nhập
-        $user = Auth::guard('collab')->user();
+        // Check if the user is authenticated and has the recruiter role
+        $user = Auth::user();
 
-        // Kiểm tra nếu người dùng là nhà tuyển dụng (recruiter)
-        if ($user->status === 0) {
-            // Nếu status là 0, chuyển hướng đến view `collab.unverified`
-            return redirect()->route('collab.unverified');
-        } elseif ($user->status === 2) {
-            // Nếu status là 2, chuyển hướng đến view `collab.expired`
-            return redirect()->route('collab.expired');
+        if ($user && $user->role === 'recruiter') {
+            $recruiter = $user->recruiter;
+            if ($recruiter) {
+                // Redirect based on recruiter status
+                switch ($recruiter->status) {
+                    case 0:
+                        return redirect()->route('collab.unverified');
+                    case 2:
+                        return redirect()->route('collab.expired');
+                }
+            }
         }
 
-        // Nếu status là 1 hoặc 3, cho phép truy cập
         return $next($request);
     }
 }

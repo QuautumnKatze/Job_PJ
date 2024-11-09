@@ -11,16 +11,18 @@ class users extends Authenticatable
 {
     use HasFactory;
     protected $fillable = [
-        "email",
-        "password",
-        "full_name",
+        "account_id",
         "gender",
         "phone",
-        "avatar",
         "status"
     ];
     protected $primaryKey = "user_id";
     protected $table = "users";
     public $timestamps = false;
+
+    public function account()
+    {
+        return $this->belongsTo(accounts::class);
+    }
 
 }

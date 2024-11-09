@@ -14,13 +14,14 @@ class admins extends Authenticatable
 {
     use HasFactory;
     protected $fillable = [
-        "user_name",
-        "password",
-        "full_name",
-        "email",
-        "avatar"
+        "account_id"
     ];
     protected $primaryKey = "admin_id";
     protected $table = "admins";
     public $timestamps = false;
+
+    public function account()
+    {
+        return $this->belongsTo(accounts::class);
+    }
 }

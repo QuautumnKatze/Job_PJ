@@ -54,7 +54,7 @@
                                             </td>
                                             <td>{{$item->title}}</td>
                                             <td>
-                                                {{$item->admin_id}}
+                                                {{$item->account_id}}
                                             </td>
                                             <td>
                                                 {{$item->updated_at}}

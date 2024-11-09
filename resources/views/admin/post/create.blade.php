@@ -100,10 +100,10 @@
 <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('content', {
-        filebrowserImageBrowseUrl: '/admin/file-manager?type=Images',
-        filebrowserBrowseUrl: '/admin/file-manager?type=Files',
-        filebrowserUploadUrl: '/admin/file-manager/upload?type=Images&_token={{ csrf_token() }}',
-        filebrowserImageUploadUrl: '/admin/file-manager/upload?type=Images&_token={{ csrf_token() }}',
+        filebrowserImageBrowseUrl: '/file-manager?type=Images',
+        filebrowserBrowseUrl: '/file-manager?type=Files',
+        filebrowserUploadUrl: '/file-manager/upload?type=Images&_token={{ csrf_token() }}',
+        filebrowserImageUploadUrl: '/file-manager/upload?type=Images&_token={{ csrf_token() }}',
         height: 500,
         width: '100%'
     });
@@ -116,7 +116,7 @@
     }
     $('#lfm').filemanager('image');
     $('#lfm').on('click', function () {
-        var route_prefix = '/admin/file-manager';
+        var route_prefix = '/file-manager';
         window.open(route_prefix + '?type=image', 'FileManager', 'width=700,height=400');
         window.SetUrl = function (items) {
             var url = items[0].url;
