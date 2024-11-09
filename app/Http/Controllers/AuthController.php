@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendRecruiterVerificationMail;
 use App\Mail\RecruiterVerificationMail;
 use App\Models\accounts;
 use App\Models\admins;
@@ -206,7 +207,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
+        // Lưu vào bảng accounts
         $accountData = new accounts();
         $accountData->user_name = $request->user_name;
         $accountData->password = md5($request->password);
@@ -215,10 +216,9 @@ class AuthController extends Controller
         $accountData->avatar = "/storage/photos/shares/avatar/default-avatar.jpg";
         $accountData->role = "admin";
         $accountData->save();
-
         // Lấy account_id của account vừa được tạo
         $accountId = $accountData->account_id;
-
+        // Lưu vào bảng admins
         $adminData = new admins();
         $adminData->account_id = $accountId;
         $adminData->save();
@@ -238,7 +238,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
+        // Lưu vào bảng accounts
         $accountData = new accounts();
         $accountData->user_name = $request->user_name;
         $accountData->password = md5($request->password);
@@ -247,10 +247,9 @@ class AuthController extends Controller
         $accountData->avatar = "/storage/photos/shares/avatar/default-avatar.jpg";
         $accountData->role = "recruiter";
         $accountData->save();
-
         // Lấy account_id của account vừa được tạo
         $accountId = $accountData->account_id;
-
+        //Lưu vào bảng recruiters
         $recruiterData = new recruiters();
         $recruiterData->account_id = $accountId;
         $recruiterData->phone = $request->phone;
@@ -262,9 +261,7 @@ class AuthController extends Controller
         $recruiterData->save();
 
         $account = accounts::where('account_id', $accountId)->first();
-
-        Mail::to('manhphuc2003@gmail.com')->send(new RecruiterVerificationMail($account));
-
+        SendRecruiterVerificationMail::dispatch($account);
         return response()->json(['success' => 'Đăng ký thành công']);
     }
 
