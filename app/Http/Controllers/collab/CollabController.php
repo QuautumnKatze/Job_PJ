@@ -20,9 +20,14 @@ class CollabController extends Controller
         return view('collab.expired');
     }
 
-    public function ShowUnverified()
+    public function showUnverified()
     {
         return view('collab.unverified');
+    }
+
+    public function createJob()
+    {
+        return view('collab.create-job');
     }
 
     /**

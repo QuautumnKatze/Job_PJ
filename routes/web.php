@@ -97,10 +97,16 @@ Route::prefix('collab')->group(function () {
     Route::middleware('checkCollabLoggedIn')->group(function () {
         Route::middleware('checkCollabStatus')->group(function () {
             Route::get('/home', [CollabController::class, 'index'])->name('collab');
+            Route::get('/create-job', [CollabController::class, 'createJob'])->name('collab.create-job');
         });
 
         Route::get('/expired', [CollabController::class, 'showExpired'])->name('collab.expired');
         Route::get('/unverified', [CollabController::class, 'showUnverified'])->name('collab.unverified');
+
+        // File Manager
+        Route::group(['prefix' => 'file-manager', 'middleware' => ['web', 'auth:collab']], function () {
+            \UniSharp\LaravelFilemanager\Lfm::routes();
+        });
 
     });
 });

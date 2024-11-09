@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class applied_cv extends Model
+class applications extends Model
 {
     use HasFactory;
     protected $fillable = [
         "cv_id",
         "job_id",
+        "description",
         "status",
     ];
-    protected $primaryKey = "applied_cv_id";
-    protected $table = "applied_cv";
+    protected $primaryKey = "application_id";
+    protected $table = "applications";
     public $timestamps = false;
 }
