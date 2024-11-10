@@ -98,6 +98,9 @@ Route::prefix('collab')->group(function () {
             Route::delete('/delete-job/{id}', [CollabJobController::class, 'destroy'])->name('collab.destroy-job');
             Route::post('/update-job/{id}', [CollabJobController::class, 'update'])->name('collab.update-job');
             Route::get('/job-application/{id}', [CollabController::class, 'showJobApplications'])->name('collab.job-application');
+            Route::get('/view-application/{id}', [CollabController::class, 'viewApplication'])->name('collab.view-application');
+            Route::post('/approve-application', [CollabController::class, 'approveApplication'])->name('collab.approve');
+            Route::post('/reject-application', [CollabController::class, 'rejectApplication'])->name('collab.reject');
 
         });
 

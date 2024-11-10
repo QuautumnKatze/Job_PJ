@@ -28,6 +28,6 @@ class recruiters extends Authenticatable
 
     public function account()
     {
-        return $this->belongsTo(accounts::class);
+        return $this->belongsTo(accounts::class, 'account_id', 'account_id');
     }
 }

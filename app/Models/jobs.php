@@ -23,4 +23,9 @@ class jobs extends Model
     protected $table = "jobs";
     public $timestamps = false;
 
+    public function applications()
+    {
+        return $this->hasMany(applications::class, 'job_id', 'job_id');
+    }
+
 }

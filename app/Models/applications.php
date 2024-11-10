@@ -18,4 +18,14 @@ class applications extends Model
     protected $primaryKey = "application_id";
     protected $table = "applications";
     public $timestamps = false;
+
+    public function job()
+    {
+        return $this->belongsTo(jobs::class, 'job_id', 'job_id');
+    }
+
+    public function cv()
+    {
+        return $this->belongsTo(cv::class, 'cv_id', 'cv_id');
+    }
 }

@@ -22,7 +22,12 @@ class users extends Authenticatable
 
     public function account()
     {
-        return $this->belongsTo(accounts::class);
+        return $this->belongsTo(accounts::class, 'account_id', 'account_id');
+    }
+
+    public function cvs()
+    {
+        return $this->hasMany(cv::class, 'user_id', 'user_id');
     }
 
 }

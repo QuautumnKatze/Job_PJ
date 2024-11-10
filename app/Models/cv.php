@@ -16,4 +16,14 @@ class cv extends Model
     protected $primaryKey = "cv_id";
     protected $table = "cv";
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(users::class, 'user_id', 'user_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(applications::class, 'cv_id', 'cv_id');
+    }
 }
