@@ -5,7 +5,7 @@
 <!-- Header Title Start -->
 <section class="inner-header-title blank">
     <div class="container">
-        <h1>Đăng tuyển dụng việc làm</h1>
+        <h1>Chỉnh sửa thông tin việc làm</h1>
     </div>
 </section>
 <div class="clearfix"></div>
@@ -15,13 +15,14 @@
 <div class="detail-desc section">
     <div class="container white-shadow">
         <div class="row bottom-mrg">
-            <form action="{{route('collab.store-job')}}" method="POST" class="add-feild" style="padding-top:15px;">
+            <form action="{{route('collab.update-job', $jobdata->job_id)}}" method="POST" class="add-feild"
+                style="padding-top:15px;">
                 {{csrf_field()}}
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="input-group">
                         <label>Tên việc làm: </label>
-                        <input type="text" class="form-control" name="job_name" placeholder="Nhập tên việc làm"
-                            required>
+                        <input type="text" class="form-control" name="job_name" value="{{$jobdata->job_name}}"
+                            placeholder="Nhập tên việc làm" required>
                     </div>
                 </div>
 
@@ -30,7 +31,8 @@
                         <label>Danh mục việc làm: </label>
                         <select id="jobcategory" name="job_category_id" class="form-control input-lg">
                             @foreach ($jobcategorydata as $cate)
-                                <option value="{{$cate->job_category_id}}">
+                                <option value="{{$cate->job_category_id}}"
+                                    {{$cate->job_category_id == $jobdata->job_category_id ? 'selected' : ''}}>
                                     {{$cate->job_category_name}}
                                 </option>
                             @endforeach
@@ -41,8 +43,8 @@
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="input-group">
                         <label>Mức lương thỏa thuận: </label>
-                        <input type="text" class="form-control" name="salary" placeholder="Mức lương thỏa thuận"
-                            required>
+                        <input type="text" class="form-control" name="salary" value="{{$jobdata->salary}}"
+                            placeholder="Mức lương thỏa thuận" required>
                     </div>
                 </div>
 
@@ -51,7 +53,7 @@
                         <label>Thành phố: </label>
                         <select name="city_id" class="form-control input-lg">
                             @foreach ($citydata as $city)
-                                <option value="{{$city->city_id}}">
+                                <option value="{{$city->city_id}}" {{$city->city_id == $jobdata->city_id ? 'selected' : ''}}>
                                     {{$city->city_name}}
                                 </option>
                             @endforeach
@@ -62,21 +64,23 @@
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="input-group">
                         <label>Địa điểm làm việc: </label>
-                        <input type="text" class="form-control" name="location" placeholder="Địa chỉ" required>
+                        <input type="text" class="form-control" name="location" value="{{$jobdata->location}}"
+                            placeholder="Địa chỉ" required>
                     </div>
                 </div>
 
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="input-group">
                         <label>Điều kiện ứng tuyển: </label>
-                        <input type="text" class="form-control" name="requirement" placeholder="Điều kiện" required>
+                        <input type="text" class="form-control" name="requirement" value="{{$jobdata->requirement}}"
+                            placeholder="Điều kiện" required>
                     </div>
                 </div>
 
                 <div class="col-md-12 col-sm-12" style="margin-bottom:15px">
                     <label>Chi tiết công việc: </label>
                     <textarea class="form-control" name="content" id="content"
-                        placeholder="Chi tiết công việc"></textarea>
+                        placeholder="Chi tiết công việc"> {{$jobdata->content}}</textarea>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <button type="submit" class="btn btn-primary">

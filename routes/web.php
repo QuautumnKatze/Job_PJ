@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\collab\CollabAuthController;
 use \App\Http\Controllers\collab\CollabController;
+use App\Http\Controllers\collab\CollabJobController;
+use App\Http\Controllers\homepage\HomeController;
 use App\Http\Controllers\JobCategoryController;
 use App\Http\Controllers\RecruiterController;
 use Illuminate\Support\Facades\Route;
@@ -22,15 +24,6 @@ use App\Http\Middleware\checkAdminLoggedIn;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('homepage.home');
-});
-
-Route::get('/home', function () {
-    return view('homepage.home');
-})->name('homepage.home');
-
 // File Manager
 Route::group(['prefix' => 'file-manager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -96,7 +89,16 @@ Route::post('/admin/login/submit', [AuthController::class, 'adminLogin'])->name(
 Route::prefix('collab')->group(function () {
     Route::middleware('checkCollabLoggedIn')->group(function () {
         Route::middleware('checkCollabStatus')->group(function () {
-            Route::get('/create-job', [CollabController::class, 'createJob'])->name('collab.create-job');
+
+            // Job
+            Route::get('/manage-job', [CollabJobController::class, 'index'])->name('collab.manage-job');
+            Route::get('/create-job', [CollabJobController::class, 'create'])->name('collab.create-job');
+            Route::post('/store-job', [CollabJobController::class, 'store'])->name('collab.store-job');
+            Route::get('/edit-job/{id}', [CollabJobController::class, 'edit'])->name('collab.edit-job');
+            Route::delete('/delete-job/{id}', [CollabJobController::class, 'destroy'])->name('collab.destroy-job');
+            Route::post('/update-job/{id}', [CollabJobController::class, 'update'])->name('collab.update-job');
+            Route::get('/job-application/{id}', [CollabController::class, 'showJobApplications'])->name('collab.job-application');
+
         });
 
         Route::get('/home', [CollabController::class, 'index'])->name('collab');
@@ -122,6 +124,12 @@ Route::post('/collab/login/submit', [AuthController::class, 'collabLogin'])->nam
 Route::get('/collab/logout', [AuthController::class, 'collabLogout'])->name('collab.logout');
 
 //--------------------------------------------------------------------------
-//
+//HOMEPAGE
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
+Route::get('/home', [HomeController::class, 'index'])->name('homepage.home');
+Route::get('/home/job-list', [HomeController::class, 'displayJobs'])->name('homepage.joblist');
+Route::get('/home/job-detail/{id}', [HomeController::class, 'displayJobDetail'])->name('homepage.jobdetail');
+
+
 //-------------------------------------------------------------TEST
 

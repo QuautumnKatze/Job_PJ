@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\accounts;
 use App\Models\post_categories;
 use App\Models\posts;
 use Auth;
@@ -15,7 +16,8 @@ class PostController extends Controller
     public function index()
     {
         $postdata = posts::all();
-        return view("admin.post.index", compact("postdata"));
+        $accountdata = accounts::where('role', 'admin')->get();
+        return view("admin.post.index", compact("postdata", "accountdata"));
     }
 
     /**
@@ -39,7 +41,7 @@ class PostController extends Controller
         $createData->shorten = $request->shorten;
         $createData->status = $request->status;
         $createData->content = $request->content;
-        $createData->account_id = Auth::user()->account_id;
+        $createData->admin_id = Auth::user()->admin->admin_id;
 
         $createData->save();
         return redirect()->route("post.index");

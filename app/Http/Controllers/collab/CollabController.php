@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\collab;
 
 use App\Http\Controllers\Controller;
+use App\Models\accounts;
+use App\Models\applications;
+use App\Models\cities;
+use App\Models\job_categories;
+use App\Models\jobs;
 use Illuminate\Http\Request;
 
 class CollabController extends Controller
@@ -25,9 +30,12 @@ class CollabController extends Controller
         return view('collab.unverified');
     }
 
-    public function createJob()
+    public function showJobApplications($id)
     {
-        return view('collab.create-job');
+        $applicationdata = applications::where('job_id', $id)->get();
+        $jobdata = jobs::where('job_id', $id)->first();
+        $accountdata = accounts::where('role', 'user')->get();
+        return view('collab.job-application', compact('applicationdata', 'jobdata', 'accountdata'));
     }
 
     /**

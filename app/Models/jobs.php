@@ -12,6 +12,7 @@ class jobs extends Model
         "job_category_id",
         "job_name",
         "salary",
+        "location",
         "city_id",
         "requirement",
         "content",

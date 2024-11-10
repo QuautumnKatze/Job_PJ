@@ -54,7 +54,12 @@
                                             </td>
                                             <td>{{$item->title}}</td>
                                             <td>
-                                                {{$item->account_id}}
+                                                @foreach($accountdata as $acc)
+                                                    @if ($acc->admin->admin_id == $item->admin_id)
+                                                        {{$acc->full_name}}
+                                                    @endif
+                                                @endforeach
+
                                             </td>
                                             <td>
                                                 {{$item->updated_at}}

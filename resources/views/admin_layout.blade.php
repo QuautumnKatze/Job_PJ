@@ -149,13 +149,13 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="/admin/file-manager?type=file" class="menu-link">
+              <a href="/file-manager?type=file" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">QL file</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="/admin/file-manager?type=image" class="menu-link">
+              <a href="/file-manager?type=image" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">QL hình ảnh</div>
               </a>

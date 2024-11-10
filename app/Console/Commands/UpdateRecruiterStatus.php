@@ -18,12 +18,12 @@ class UpdateRecruiterStatus extends Command
 
         // Cập nhật trạng thái cho người dùng hết hạn miễn phí
         recruiters::where('status', 1)
-            ->where('expired_date', '<', $now)
+            ->where('expire_date', '<', $now)
             ->update(['status' => 2]);
 
         // Cập nhật trạng thái cho người dùng premium hết hạn
         recruiters::where('status', 3)
-            ->where('expired_date', '<', $now)
+            ->where('expire_date', '<', $now)
             ->update(['status' => 2]);
 
         $this->info('Recruiter statuses updated successfully.');

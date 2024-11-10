@@ -8,9 +8,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- CSS==================================================-->
+
     <link rel="stylesheet" href="{{asset('plugins/css/plugins.css')}}">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link type="text/css" rel="stylesheet" id="jssDefault" href="{{asset('css/colors/green-style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 </head>
 
 <body>
@@ -31,11 +34,13 @@
                                 <li>
                                     <div class="row">
                                         <div class="col-menu col-md-3">
-                                            <h6 class="title">Main Pages</h6>
+                                            <h6 class="title">Quản lý việc làm</h6>
 
                                             <div class="content">
                                                 <ul class="menu-col">
-                                                    <li><a href="index-2.html">Home Page 1</a></li>
+                                                    <li>
+                                                        <a href="{{route('collab.manage-job')}}">Danh sách việc làm</a>
+                                                    </li>
                                                     <li><a href="index-3.html">Home Page 2</a></li>
 
                                                 </ul>
@@ -253,15 +258,20 @@
         <script type="text/javascript" src="{{asset('plugins/js/jquery.easy-autocomplete.min.js')}}"></script>
         <script src="{{asset('js/custom.js')}}"></script>
         <script src="{{asset('js/jQuery.style.switcher.js')}}"></script>
-        <script type="text/javascript">$(document).ready(function () {
+        <!-- <script type="text/javascript">
+            $(document).ready(function () {
                 $('#styleOptions').styleSwitcher();
-            });</script>
-        <script>function openRightMenu() {
+            });
+        </script>
+        <script>
+            function openRightMenu() {
                 document.getElementById("rightMenu").style.display = "block";
             }
             function closeRightMenu() {
                 document.getElementById("rightMenu").style.display = "none";
-            }</script>
+            }
+        </script> -->
+        @yield('scripts')
     </div>
 </body>
 <!-- index-540:45-->
