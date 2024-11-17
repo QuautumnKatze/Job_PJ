@@ -45,7 +45,7 @@
                     <div class="mng-company-pic">
                         @foreach($recruiterdata as $acc)
                             @if ($acc->recruiter->recruiter_id == $jobdata->recruiter_id)
-                                <a href="{{route('homepage.jobdetail', $jobdata->job_id)}}" data-toggle="tooltip"><img
+                                <a href="{{route('homepage.job-detail', $jobdata->job_id)}}" data-toggle="tooltip"><img
                                         src="{{$acc->avatar}}" class="img-responsive" alt="" /></a>
                             @endif
                         @endforeach
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="mng-company-name">
-                        <h4><a href="{{route('homepage.jobdetail', $jobdata->job_id)}}"
+                        <h4><a href="{{route('homepage.job-detail', $jobdata->job_id)}}"
                                 data-toggle="tooltip">{{$jobdata->job_name}}</a> </h4>
                         <span class="cmp-time">{{$jobdata->salary}}</span>
                     </div>
@@ -119,12 +119,13 @@
 
                             <div class="cndt-caption">
                                 <div class="cndt-pic">
-                                    <a href="{{route('homepage.jobdetail', $jobdata->job_id)}}" data-toggle="tooltip">
+                                    <a href="{{route('homepage.user-profile', $apply->cv->user->account_id)}}"
+                                        data-toggle="tooltip">
                                         <img src="{{asset($apply->cv->user->account->avatar)}}" class="img-responsive"
                                             alt="" />
                                     </a>
                                 </div>
-                                <h4><a href="{{route('homepage.jobdetail', $jobdata->job_id)}}"
+                                <h4><a href="{{route('homepage.user-profile', $apply->cv->user->account_id)}}"
                                         data-toggle="tooltip">{{$apply->cv->user->account->full_name}}</a> </h4>
                                 <span>SĐT: {{$apply->cv->user->phone}}</span>
                                 <p class="two-lines">{{$apply->description}}</p>

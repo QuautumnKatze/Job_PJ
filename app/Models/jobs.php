@@ -15,6 +15,7 @@ class jobs extends Model
         "location",
         "city_id",
         "requirement",
+        "quantity",
         "content",
         "recruiter_id",
         "status"
@@ -26,6 +27,11 @@ class jobs extends Model
     public function applications()
     {
         return $this->hasMany(applications::class, 'job_id', 'job_id');
+    }
+
+    public function recruiter()
+    {
+        return $this->belongsTo(recruiters::class, 'recruiter_id', 'recruiter_id');
     }
 
 }

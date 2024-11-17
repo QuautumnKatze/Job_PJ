@@ -14,8 +14,6 @@ class RecruiterVerificationMail extends Mailable
     use Queueable, SerializesModels;
 
     public $recruiter;
-
-
     /**
      * Create a new message instance.
      */

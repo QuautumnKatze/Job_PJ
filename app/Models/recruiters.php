@@ -30,4 +30,9 @@ class recruiters extends Authenticatable
     {
         return $this->belongsTo(accounts::class, 'account_id', 'account_id');
     }
+
+    public function job()
+    {
+        return $this->hasMany(jobs::class, 'user_id', 'user_id');
+    }
 }

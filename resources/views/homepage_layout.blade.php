@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{{asset('plugins/css/plugins.css')}}">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link type="text/css" rel="stylesheet" id="jssDefault" href="{{asset('css/colors/green-style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -32,75 +35,10 @@
                                     <div class="row">
                                         <div class="col-menu col-md-3">
                                             <h6 class="title">Main Pages</h6>
-
                                             <div class="content">
                                                 <ul class="menu-col">
-                                                    <li><a href="index-2.html">Home Page 1</a></li>
-                                                    <li><a href="index-3.html">Home Page 2</a></li>
-                                                    <li><a href="index-4.html">Home Page 3</a></li>
-                                                    <li><a href="index-5.html">Home Page 4</a></li>
-                                                    <li><a href="index-6.html">Home Page 5</a></li>
-                                                    <li><a href="freelancing.html">Freelancing</a></li>
-                                                    <li><a href="signin-signup.html">Sign In / Sign Up</a></li>
-                                                    <li><a href="search-job.html">Search Job</a></li>
-                                                    <li><a href="accordion.html">Accordion</a></li>
-                                                    <li><a href="tab.html">Tab Style</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-menu col-md-3">
-                                            <h6 class="title">For Candidate</h6>
+                                                    <li><a href="{{route('homepage.job-list')}}">Jobs Browse</a></li>
 
-                                            <div class="content">
-                                                <ul class="menu-col">
-                                                    <li><a href="browse-jobs.html">Browse Jobs</a></li>
-                                                    <li><a href="browse-company.html">Browse Companies</a></li>
-                                                    <li><a href="create-resume.html">Create Resume</a></li>
-                                                    <li><a href="resume-detail.html">Resume Detail</a></li>
-                                                    <li><a href="#">Manage Jobs</a></li>
-                                                    <li><a href="job-detail.html">Job Detail</a></li>
-                                                    <li><a href="browse-jobs-grid.html">Job In Grid</a></li>
-                                                    <li><a href="candidate-profile.html">Candidate Profile</a></li>
-                                                    <li><a href="manage-resume-2.html">Manage Resume 2</a></li>
-                                                    <li><a href="company-detail.html">Company Detail</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-menu col-md-3">
-                                            <h6 class="title">For Employer</h6>
-
-                                            <div class="content">
-                                                <ul class="menu-col">
-                                                    <li><a href="create-job.html">Create Job</a></li>
-                                                    <li><a href="create-company.html">Create Company</a></li>
-                                                    <li><a href="manage-company.html">Manage Company</a></li>
-                                                    <li><a href="manage-candidate.html">Manage Candidate</a></li>
-                                                    <li><a href="manage-employee.html">Manage Employee</a></li>
-                                                    <li><a href="browse-resume.html">Browse Resume</a></li>
-                                                    <li><a href="search-new.html">New Search Job</a></li>
-                                                    <li><a href="employer-profile.html">Employer Profile</a></li>
-                                                    <li><a href="manage-resume.html">Manage Resume</a></li>
-                                                    <li><a href="new-job-detail.html">New Job Detail</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-menu col-md-3">
-                                            <h6 class="title">Extra Pages <span class="new-offer">New</span></h6>
-
-                                            <div class="content">
-                                                <ul class="menu-col">
-                                                    <li><a href="freelancer-detail.html">Freelancer detail</a></li>
-                                                    <li><a href="job-apply-detail.html">New Apply Job</a></li>
-                                                    <li><a href="payment-methode.html">Payment Methode</a></li>
-                                                    <li><a href="new-login-signup.html">New LogIn / SignUp</a></li>
-                                                    <li><a href="freelancing-jobs.html">Freelancing Jobs</a></li>
-                                                    <li><a href="freelancers.html">Freelancers</a></li>
-                                                    <li><a href="freelancers-2.html">Freelancers 2</a></li>
-                                                    <li><a href="premium-candidate.html">Premium Candidate</a></li>
-                                                    <li><a href="premium-candidate-detail.html">Premium Candidate
-                                                            Detail</a>
-                                                    </li>
-                                                    <li><a href="blog-detail.html">Blog detail</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -111,10 +49,12 @@
                         <li><a href="blog.html">Blog</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li><a href="login.html"><i class="fa fa-pencil" aria-hidden="true"></i>SignUp</a></li>
-                        <li><a href="pricing.html"><i class="fa fa-sign-in" aria-hidden="true"></i>Pricing</a></li>
-                        <li class="left-br"><a href="javascript:void(0)" data-toggle="modal" data-target="#signup"
-                                class="signin">Sign In Now</a></li>
+                        @if (Auth::check())
+                            <li class="left-br"><a href="{{route('homepage.logout')}}" class="signin">Đăng xuất</a></li>
+                        @else
+                            <li class="left-br"><a href="{{route('homepage.login')}}" class="signin">Đăng nhập ngay</a></li>
+                        @endif
+
                     </ul>
                 </div>
             </div>
@@ -238,16 +178,18 @@
                                     <img src="{{asset('img/logo.png')}}" class="img-responsive" alt="" />
 
                                     <div class="subscribe wow fadeInUp">
-                                        <form class="form-inline" method="post">
+                                        <form class="form-inline" id="loginInlineForm"
+                                            action="{{route('homepage.login.submit')}}" method="post">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input type="email" name="email" class="form-control"
-                                                        placeholder="Username" required=""><input type="password"
-                                                        name="password" class="form-control" placeholder="Password"
-                                                        required="">
+                                                    <input type="text" name="login" class="form-control"
+                                                        placeholder="Tên đăng nhập hoặc email" required="">
+                                                    <input type="password" name="password" class="form-control"
+                                                        placeholder="Password" required="">
 
                                                     <div class="center">
-                                                        <button type="submit" id="login-btn" class="submit-btn"> Login
+                                                        <button type="submit" id="login-btn" class="submit-btn"> Đăng
+                                                            nhập
                                                         </button>
                                                     </div>
                                                 </div>
@@ -316,7 +258,7 @@
         <script type="text/javascript" src="{{asset('plugins/js/jquery.easy-autocomplete.min.js')}}"></script>
         <script src="{{asset('js/custom.js')}}"></script>
         <script src="{{asset('js/jQuery.style.switcher.js')}}"></script>
-        <script type="text/javascript">$(document).ready(function () {
+        <!-- <script type="text/javascript">$(document).ready(function () {
                 $('#styleOptions').styleSwitcher();
             });</script>
         <script>function openRightMenu() {
@@ -324,7 +266,52 @@
             }
             function closeRightMenu() {
                 document.getElementById("rightMenu").style.display = "none";
-            }</script>
+            }
+        </script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+            integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#loginInlineForm').on('submit', function (e) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: 'POST',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            if (response.success) {
+                                toastr.success(response.msg);
+                                setTimeout(function () {
+                                    window.location.href = '/home';
+                                }, 1000);
+                            }
+                        },
+                        error: function (response) {
+                            if (response.status === 422) {
+                                let errors = response.responseJSON.errors;
+                                toastr.error(errors.login ? errors.login[0] : 'Lỗi đăng nhập.');
+                            } else {
+                                toastr.error('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
+                            }
+                        }
+                    });
+                });
+            });
+
+            @if (session('success'))
+                toastr.success("{{ session('success') }}");
+            @endif
+            @if (session('error'))
+                toastr.success("{{ session('error') }}");
+            @endif
+        </script>
+
+        @yield('scripts')
     </div>
 </body>
 <!-- index-540:45-->

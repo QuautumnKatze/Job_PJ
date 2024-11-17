@@ -1,11 +1,23 @@
 @extends("homepage_layout")
 @section("homepage_content")
+<style>
+    .limit-text {
+        width: 15ch;
+        /* Giới hạn chiều rộng theo 15 ký tự */
+        white-space: nowrap;
+        /* Ngăn xuống dòng */
+        overflow: hidden;
+        /* Ẩn phần nội dung vượt quá */
+        text-overflow: ellipsis;
+        /* Hiển thị dấu "..." nếu vượt quá */
+    }
+</style>
 <div class="clearfix"></div>
 <div class="banner home-5" style="background-image:url(img/6604.jpg);">
     <div class="container">
         <div class="banner-caption">
             <div class="col-md-12 col-sm-12 banner-text">
-                <h1>7,000+ Browse Jobs</h1>
+                <h1>Tìm kiếm công việc</h1>
 
                 <form class="form-horizontal">
                     <div class="col-md-4 no-padd">
@@ -46,198 +58,35 @@
     <div class="container">
         <div class="row">
             <div class="main-heading">
-                <p>200 New Jobs</p>
-
-                <h2>New & Random <span>Jobs</span></h2>
+                <h2>Tuyển dụng <span>mới</span></h2>
             </div>
         </div>
         <div class="row extra-mrg">
-            <div class="col-md-3 col-sm-6">
-                <div class="grid-view brows-job-list">
-                    <div class="brows-job-company-img"><img src="{{asset('img/com-1.jpg')}}" class=" img-responsive"
-                            alt="" /></div>
-                    <div class="brows-job-position">
-                        <h3><a href="job-detail.html">Web Developer</a></h3>
-
-                        <p><span>Google</span></p>
+            @foreach ($newjob as $job)
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="grid-view brows-job-list">
+                        <div class="brows-job-company-img"><img src="{{asset($job->recruiter->account->avatar)}}"
+                                class=" img-responsive" alt="" /></div>
+                        <div class="brows-job-position">
+                            <h3><a href="{{route('homepage.job-detail', $job->job_id)}}">{{$job->job_name}}</a></h3>
+                            <p><span>{{$job->recruiter->company_name}}</span></p>
+                        </div>
+                        <div class="job-position"><span class="job-num">{{$job->location}}</span></div>
+                        <!-- <div class="brows-job-type"><span class="part-time">Part Time</span></div> -->
+                        <ul class="grid-view-caption">
+                            <li>
+                                <div class="brows-job-location">
+                                    <p class="limit-text"><i class="fa fa-users"></i>{{$job->quantity}} vị trí</p>
+                                </div>
+                            </li>
+                            <li>
+                                <p class="single-line"><span class="brows-job-sallery"><i
+                                            class="fa fa-money"></i>{{$job->salary}}</span></p>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="job-position"><span class="job-num">5 Position</span></div>
-                    <div class="brows-job-type"><span class="part-time">Part Time</span></div>
-                    <ul class="grid-view-caption">
-                        <li>
-                            <div class="brows-job-location">
-                                <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
-                            </div>
-                        </li>
-                        <li>
-                            <p><span class="brows-job-sallery"><i class="fa fa-money"></i>$110 - 200</span></p>
-                        </li>
-                    </ul>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="grid-view brows-job-list">
-                    <div class="brows-job-company-img"><img src="{{asset('img/com-2.jpg')}}" class=" img-responsive"
-                            alt="" /></div>
-                    <div class="brows-job-position">
-                        <h3><a href="job-detail.html">Web Developer</a></h3>
-
-                        <p><span>Google</span></p>
-                    </div>
-                    <div class="job-position"><span class="job-num">5 Position</span></div>
-                    <div class="brows-job-type"><span class="freelanc">Freelancer</span></div>
-                    <ul class="grid-view-caption">
-                        <li>
-                            <div class="brows-job-location">
-                                <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
-                            </div>
-                        </li>
-                        <li>
-                            <p><span class="brows-job-sallery"><i class="fa fa-money"></i>$110 - 200</span></p>
-                        </li>
-                    </ul>
-                    <span class="tg-themetag tg-featuretag">Premium</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="grid-view brows-job-list">
-                    <div class="brows-job-company-img"><img src="{{asset('img/com-3.jpg')}}" class=" img-responsive"
-                            alt="" /></div>
-                    <div class="brows-job-position">
-                        <h3><a href="job-detail.html">Web Developer</a></h3>
-
-                        <p><span>Google</span></p>
-                    </div>
-                    <div class="job-position"><span class="job-num">5 Position</span></div>
-                    <div class="brows-job-type"><span class="enternship">Enternship</span></div>
-                    <ul class="grid-view-caption">
-                        <li>
-                            <div class="brows-job-location">
-                                <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
-                            </div>
-                        </li>
-                        <li>
-                            <p><span class="brows-job-sallery"><i class="fa fa-money"></i>$110 - 200</span></p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="grid-view brows-job-list">
-                    <div class="brows-job-company-img"><img src="{{asset('img/com-4.jpg')}}" class=" img-responsive"
-                            alt="" /></div>
-                    <div class="brows-job-position">
-                        <h3><a href="job-detail.html">Web Developer</a></h3>
-
-                        <p><span>Google</span></p>
-                    </div>
-                    <div class="job-position"><span class="job-num">5 Position</span></div>
-                    <div class="brows-job-type"><span class="full-time">Full Time</span></div>
-                    <ul class="grid-view-caption">
-                        <li>
-                            <div class="brows-job-location">
-                                <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
-                            </div>
-                        </li>
-                        <li>
-                            <p><span class="brows-job-sallery"><i class="fa fa-money"></i>$110 - 200</span></p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="grid-view brows-job-list">
-                    <div class="brows-job-company-img"><img src="{{asset('img/com-5.jpg')}}" class=" img-responsive"
-                            alt="" /></div>
-                    <div class="brows-job-position">
-                        <h3><a href="job-detail.html">Web Developer</a></h3>
-
-                        <p><span>Google</span></p>
-                    </div>
-                    <div class="job-position"><span class="job-num">5 Position</span></div>
-                    <div class="brows-job-type"><span class="part-time">Part Time</span></div>
-                    <ul class="grid-view-caption">
-                        <li>
-                            <div class="brows-job-location">
-                                <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
-                            </div>
-                        </li>
-                        <li>
-                            <p><span class="brows-job-sallery"><i class="fa fa-money"></i>$110 - 200</span></p>
-                        </li>
-                    </ul>
-                    <span class="tg-themetag tg-featuretag">Premium</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="grid-view brows-job-list">
-                    <div class="brows-job-company-img"><img src="{{asset('img/com-6.jpg')}}" class=" img-responsive"
-                            alt="" /></div>
-                    <div class="brows-job-position">
-                        <h3><a href="job-detail.html">Web Developer</a></h3>
-
-                        <p><span>Google</span></p>
-                    </div>
-                    <div class="job-position"><span class="job-num">5 Position</span></div>
-                    <div class="brows-job-type"><span class="full-time">Full Time</span></div>
-                    <ul class="grid-view-caption">
-                        <li>
-                            <div class="brows-job-location">
-                                <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
-                            </div>
-                        </li>
-                        <li>
-                            <p><span class="brows-job-sallery"><i class="fa fa-money"></i>$110 - 200</span></p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="grid-view brows-job-list">
-                    <div class="brows-job-company-img"><img src="{{asset('img/com-7.jpg')}}" class=" img-responsive"
-                            alt="" /></div>
-                    <div class="brows-job-position">
-                        <h3><a href="job-detail.html">Web Developer</a></h3>
-
-                        <p><span>Google</span></p>
-                    </div>
-                    <div class="job-position"><span class="job-num">5 Position</span></div>
-                    <div class="brows-job-type"><span class="freelanc">Freelancer</span></div>
-                    <ul class="grid-view-caption">
-                        <li>
-                            <div class="brows-job-location">
-                                <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
-                            </div>
-                        </li>
-                        <li>
-                            <p><span class="brows-job-sallery"><i class="fa fa-money"></i>$110 - 200</span></p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="grid-view brows-job-list">
-                    <div class="brows-job-company-img"><img src="{{asset('img/com-1.jpg')}}" class=" img-responsive"
-                            alt="" /></div>
-                    <div class="brows-job-position">
-                        <h3><a href="job-detail.html">Web Developer</a></h3>
-
-                        <p><span>Google</span></p>
-                    </div>
-                    <div class="job-position"><span class="job-num">5 Position</span></div>
-                    <div class="brows-job-type"><span class="enternship">Enternship</span></div>
-                    <ul class="grid-view-caption">
-                        <li>
-                            <div class="brows-job-location">
-                                <p><i class="fa fa-map-marker"></i>QBL Park, C40</p>
-                            </div>
-                        </li>
-                        <li>
-                            <p><span class="brows-job-sallery"><i class="fa fa-money"></i>$110 - 200</span></p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>

@@ -56,7 +56,7 @@
                                 <div class="mng-company-pic">
                                     @foreach($accountdata as $acc)
                                         @if ($acc->recruiter->recruiter_id == $job->recruiter_id)
-                                            <a href="{{route('homepage.jobdetail', $job->job_id)}}" data-toggle="tooltip"><img
+                                            <a href="{{route('homepage.job-detail', $job->job_id)}}" data-toggle="tooltip"><img
                                                     src="{{$acc->avatar}}" class="img-responsive" alt="" /></a>
                                         @endif
                                     @endforeach
@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-md-4 col-sm-4">
                                 <div class="mng-company-name">
-                                    <h4><a href="{{route('homepage.jobdetail', $job->job_id)}}"
+                                    <h4><a href="{{route('homepage.job-detail', $job->job_id)}}"
                                             data-toggle="tooltip">{{$job->job_name}}</a> </h4>
                                     <span class="cmp-time">{{$job->salary}}</span>
                                 </div>

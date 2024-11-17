@@ -33,6 +33,7 @@
             <table id="table" class="table table-striped">
                 <thead>
                     <tr>
+                        <th>STT</th>
                         <th>Mã nhà tuyển dụng</th>
                         <th>Tên công ty</th>
                         <th>Người đăng ký</th>
@@ -41,9 +42,13 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
+                    @php
+                        $i = 1;
+                    @endphp
                     @foreach ($recruiterdata as $item)
                                         <tr>
-                                            <td>{{$item->account_id}}</td>
+                                            <td>{{$i++}}</td>
+                                            <td>{{$item->recruiter->recruiter_id}}</td>
                                             <td>{{$item->recruiter->company_name}}</td>
                                             <td>{{$item->full_name}}</td>
                                             @php
@@ -99,9 +104,9 @@
         let rows = document.querySelectorAll("#table tbody tr");
 
         rows.forEach(row => {
-            let id = row.cells[0].textContent.toLowerCase();
-            let name = row.cells[1].textContent.toLowerCase();
-            let statusCell = row.cells[3].id.toLowerCase();
+            let id = row.cells[1].textContent.toLowerCase();
+            let name = row.cells[2].textContent.toLowerCase();
+            let statusCell = row.cells[4].id.toLowerCase();
 
             if (filter.startsWith("id:")) {
                 // Lấy phần sau "id:" để tìm kiếm

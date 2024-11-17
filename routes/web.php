@@ -130,8 +130,21 @@ Route::get('/collab/logout', [AuthController::class, 'collabLogout'])->name('col
 //HOMEPAGE
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('/home', [HomeController::class, 'index'])->name('homepage.home');
-Route::get('/home/job-list', [HomeController::class, 'displayJobs'])->name('homepage.joblist');
-Route::get('/home/job-detail/{id}', [HomeController::class, 'displayJobDetail'])->name('homepage.jobdetail');
+Route::get('/home/job-list', [HomeController::class, 'displayJobs'])->name('homepage.job-list');
+Route::get('/home/job-detail/{id}', [HomeController::class, 'displayJobDetail'])->name('homepage.job-detail');
+Route::get('/home/user-profile/{id}', [HomeController::class, 'displayUserProfile'])->name('homepage.user-profile');
+
+Route::get('/home/login', [AuthController::class, 'showHomeLoginForm'])->name('homepage.login');
+Route::post('/home/login/submit', [AuthController::class, 'homeLogin'])->name('homepage.login.submit');
+Route::get('/home/logout', [AuthController::class, 'homeLogout'])->name('homepage.logout');
+
+
+Route::prefix('home')->group(function () {
+    Route::middleware('checkHomeLoggedIn')->group(function () {
+        Route::post('/apply', [HomeController::class, 'applyJob'])->name('homepage.apply');
+        Route::get('/applications', [HomeController::class, 'showApplications'])->name('homepage.applications');
+    });
+});
 
 
 //-------------------------------------------------------------TEST

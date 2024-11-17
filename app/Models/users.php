@@ -25,7 +25,7 @@ class users extends Authenticatable
         return $this->belongsTo(accounts::class, 'account_id', 'account_id');
     }
 
-    public function cvs()
+    public function cv()
     {
         return $this->hasMany(cv::class, 'user_id', 'user_id');
     }

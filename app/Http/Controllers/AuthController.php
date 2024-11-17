@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendRecruiterVerificationMail;
+use App\Jobs\SendVerificationRecruiter;
 use App\Mail\RecruiterVerificationMail;
 use App\Models\accounts;
 use App\Models\admins;
@@ -26,7 +27,7 @@ class AuthController extends Controller
     }
     public function showHomeLoginForm()
     {
-        return view('home.login'); // Tạo một trang đăng nhập cho admin
+        return view('homepage.login'); // Tạo một trang đăng nhập cho admin
     }
 
 
@@ -160,7 +161,7 @@ class AuthController extends Controller
 
     public function showHomeRegisterForm()
     {
-        return view("home.register");
+        return view("homepage.register");
     }
 
     public function checkEmail(Request $request)
@@ -261,7 +262,7 @@ class AuthController extends Controller
         $recruiterData->save();
 
         $account = accounts::where('account_id', $accountId)->first();
-        SendRecruiterVerificationMail::dispatch($account);
+        SendVerificationRecruiter::dispatch($account)->delay(now()->addSeconds(10));
         return response()->json(['success' => 'Đăng ký thành công']);
     }
 
