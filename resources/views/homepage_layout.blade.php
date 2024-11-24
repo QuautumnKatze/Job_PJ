@@ -23,8 +23,8 @@
             <div class="container">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"><i
                         class="fa fa-bars"></i></button>
-                <div class="navbar-header"><a class="navbar-brand" href="index-2.html"><img
-                            src="{{asset('img/logo.png')}}" class="logo logo-scrolled" alt=""></a></div>
+                <div class="navbar-header"><a class="navbar-brand" href="/home"><img src="{{asset('img/logo.png')}}"
+                            class="logo logo-scrolled" alt=""></a></div>
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="active"><input type="text" class="form-control" placeholder="Find Freelancer"></li>
@@ -37,8 +37,9 @@
                                             <h6 class="title">Main Pages</h6>
                                             <div class="content">
                                                 <ul class="menu-col">
-                                                    <li><a href="{{route('homepage.job-list')}}">Jobs Browse</a></li>
-
+                                                    <li><a href="{{route('homepage.job-list')}}">Tìm công việc</a></li>
+                                                    <li><a href="{{route('homepage.applications')}}">Công việc bạn ứng
+                                                            tuyển</a></li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -18,6 +18,12 @@ class HomeController extends Controller
         return view('homepage.home', compact('newjob'));
     }
 
+    function displayUserProfile($id)
+    {
+        $accountdata = accounts::with(['user.cv'])->where('account_id', $id)->first();
+        return view('homepage.user-profile', compact('accountdata'));
+    }
+
     function displayJobs()
     {
         $jobdata = jobs::where('status', 1)->get();
@@ -36,13 +42,6 @@ class HomeController extends Controller
         }
         return view('homepage.job-detail', compact('jobdata', 'cvdata'));
     }
-
-    function displayUserProfile($id)
-    {
-        $accountdata = accounts::with(['user.cv'])->where('account_id', $id)->first();
-        return view('homepage.user-profile', compact('accountdata'));
-    }
-
     function applyJob(Request $request)
     {
         $createData = new applications();
@@ -59,6 +58,89 @@ class HomeController extends Controller
 
     function showApplications()
     {
-        return view('homepage.applications');
+        $cvdata = cv::where('user_id', Auth::user()->user->user_id)->pluck('cv_id');
+        $applications = applications::whereIn('cv_id', $cvdata)->get();
+        #dd($applications);
+        return view('homepage.applications', compact('applications'));
+    }
+
+    function showApplyForm($id)
+    {
+        $jobdata = jobs::where('job_id', $id)->first();
+        $cvdata = cv::where('user_id', Auth::user()->user->user_id)->get();
+        return view('homepage.job-apply', compact('jobdata', 'cvdata'));
+    }
+
+    function applySubmit(Request $request)
+    {
+        if ($request->submitType == 1) {
+            $createData = new applications();
+            $createData->cv_id = $request->cv_id;
+            $createData->job_id = $request->job_id;
+            $createData->description = $request->description;
+            $createData->status = 0;
+            $createData->save();
+            return response()->json([
+                'success' => true,
+                'msg' => 'Gửi ứng tuyển thành công'
+            ]);
+        } elseif ($request->submitType == 2) {
+            $createCV = new cv();
+            $createCV->cv_path = $request->cv_path;
+            $createCV->cv_name = $request->cv_name;
+            $createCV->user_id = Auth::user()->user->user_id;
+            $createCV->save();
+            $createApply = new applications();
+            $createApply->cv_id = $createCV->cv_id;
+            $createApply->job_id = $request->job_id;
+            $createApply->description = $request->description;
+            $createApply->status = 0;
+            $createApply->save();
+            return response()->json([
+                'success' => true,
+                'msg' => 'Gửi ứng tuyển thành công'
+            ]);
+        }
+    }
+
+    function editApplication($id)
+    {
+
+        $apply = applications::where('application_id', $id)->first();
+        $jobdata = jobs::where('job_id', $apply->job_id)->first();
+        $cvdata = cv::where('user_id', Auth::user()->user->user_id)->get();
+        return view('homepage.edit-apply', compact('apply', 'jobdata', 'cvdata'));
+    }
+
+    function applyUpdate(Request $request, string $id)
+    {
+        if ($request->submitType == 1) {
+            $updateData = applications::find($id);
+            $updateData->cv_id = $request->cv_id;
+            $updateData->job_id = $request->job_id;
+            $updateData->description = $request->description;
+            $updateData->status = 0;
+            $updateData->save();
+            return response()->json([
+                'success' => true,
+                'msg' => 'Sửa đơn ứng tuyển thành công'
+            ]);
+        } elseif ($request->submitType == 2) {
+            $createCV = new cv();
+            $createCV->cv_path = $request->cv_path;
+            $createCV->cv_name = $request->cv_name;
+            $createCV->user_id = Auth::user()->user->user_id;
+            $createCV->save();
+            $updateApply = applications::find($id);
+            $updateApply->cv_id = $createCV->cv_id;
+            $updateApply->job_id = $request->job_id;
+            $updateApply->description = $request->description;
+            $updateApply->status = 0;
+            $updateApply->save();
+            return response()->json([
+                'success' => true,
+                'msg' => 'Sửa đơn ứng tuyển thành công'
+            ]);
+        }
     }
 }

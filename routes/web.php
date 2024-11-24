@@ -133,7 +133,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('homepage.home');
 Route::get('/home/job-list', [HomeController::class, 'displayJobs'])->name('homepage.job-list');
 Route::get('/home/job-detail/{id}', [HomeController::class, 'displayJobDetail'])->name('homepage.job-detail');
 Route::get('/home/user-profile/{id}', [HomeController::class, 'displayUserProfile'])->name('homepage.user-profile');
-
 Route::get('/home/login', [AuthController::class, 'showHomeLoginForm'])->name('homepage.login');
 Route::post('/home/login/submit', [AuthController::class, 'homeLogin'])->name('homepage.login.submit');
 Route::get('/home/logout', [AuthController::class, 'homeLogout'])->name('homepage.logout');
@@ -142,7 +141,11 @@ Route::get('/home/logout', [AuthController::class, 'homeLogout'])->name('homepag
 Route::prefix('home')->group(function () {
     Route::middleware('checkHomeLoggedIn')->group(function () {
         Route::post('/apply', [HomeController::class, 'applyJob'])->name('homepage.apply');
+        Route::get('/apply-job/{id}', [HomeController::class, 'showApplyForm'])->name('homepage.apply-job');
+        Route::post('/apply-submit', [HomeController::class, 'applySubmit'])->name('homepage.apply-submit');
         Route::get('/applications', [HomeController::class, 'showApplications'])->name('homepage.applications');
+        Route::get('/applications/edit/{id}', [HomeController::class, 'editApplication'])->name('homepage.edit-apply');
+        Route::post('/apply-update/{id}', [HomeController::class, 'applyUpdate'])->name('homepage.apply-update');
     });
 });
 

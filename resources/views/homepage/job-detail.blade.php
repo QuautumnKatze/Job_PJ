@@ -73,31 +73,8 @@
                 <div class="apply-job-detail">
                     {!! $jobdata->content !!}
                 </div>
-
-                <!-- <div class="apply-job-detail">
-                    <h5>Skills</h5>
-                    <ul class="skills">
-                        <li>Css3</li>
-                        <li>Html5</li>
-                        <li>Photoshop</li>
-                        <li>Wordpress</li>
-                        <li>PHP</li>
-                        <li>Java Script</li>
-                    </ul>
-                </div> -->
-
-                <!-- <div class="apply-job-detail">
-                    <h5>Requirements</h5>
-                    <ul class="job-requirements">
-                        <li><span>Availability</span> Hourly</li>
-                        <li><span>Education</span> Graduate</li>
-                        <li><span>Age</span> 25+</li>
-                        <li><span>Experience</span> Intermidiate (3 - 5Year)</li>
-                        <li><span>Language</span> English, Hindi</li>
-                    </ul>
-                </div> -->
-
-                <a href="#" class="btn btn-success" id="openModal" data-toggle="modal" data-target="#applyModal">
+                <!-- id="openModal" data-toggle="modal" data-target="#applyModal" -->
+                <a href="{{route('homepage.apply-job', $jobdata->job_id)}}" class="btn btn-success">
                     Ứng tuyển công việc này
                 </a>
 
