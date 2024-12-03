@@ -32,13 +32,14 @@
         <section class="login-screen-sec">
             <div class="container">
                 <div class="login-screen">
-                    <a href="index-2.html"><img src="{{asset('/img/logo.png')}}" class="img-responsive" alt=""></a>
+                    <a href="/home"><img src="{{asset('/img/logo.png')}}" class="img-responsive" alt=""></a>
                     <form id="loginForm" action="{{route('homepage.login.submit')}}" method="POST">
                         @csrf
                         <input type="text" name="login" class="form-control" placeholder="Email đăng nhập" required>
                         <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
                         <button class="btn btn-login" type="submit">Đăng nhập</button>
-                        <span>Bạn chưa có tài khoản? <a href="{{route('collab.register')}}"> Tạo một tài khoản nhà tuyển
+                        <span>Bạn chưa có tài khoản? <a href="{{route('homepage.register')}}"> Tạo một tài khoản nhà
+                                tuyển
                                 dụng</a></span>
                         <span><a href="#"> Quên mật khẩu</a></span>
                     </form>

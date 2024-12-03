@@ -4,6 +4,19 @@
     .detail-pannel-footer-btn a.footer-btn.red-btn {
         background: #de0032;
     }
+
+    .pdf {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+    }
+
+    .pdf,
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 </style>
 <div class="clearfix"></div>
 
@@ -57,7 +70,7 @@
         <div class="row no-padd">
             <div class="detail pannel-footer">
 
-                <div class="col-md-5 col-sm-5">
+                <div class="col-md-4 col-sm-4">
                     <ul class="detail-footer-social">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -67,9 +80,10 @@
                     </ul>
                 </div>
 
-                <div class="col-md-7 col-sm-7">
+                <div class="col-md-8 col-sm-8">
                     <div class="detail-pannel-footer-btn pull-right" id="button-zone">
                         @if ($applicationdata->status == 0)
+
                             <a href="#" class="footer-btn red-btn" title="" id="rejectBtn"
                                 data-id="{{ $applicationdata->application_id }}">Từ chối</a>
                             <a href="#" class="footer-btn blu-btn" title="" id="approveBtn"
@@ -81,6 +95,11 @@
                         @endif
 
                     </div>
+                </div>
+                <div>
+                    <object class="pdf" data="<?php echo 'http://127.0.0.1:8000' . $applicationdata->cv->cv_path ?>"
+                        width="800" height="500">
+                    </object>
                 </div>
 
             </div>

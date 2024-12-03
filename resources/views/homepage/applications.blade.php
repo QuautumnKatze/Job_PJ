@@ -70,8 +70,6 @@
                 </div>
             @endforeach
         </div>
-
-
         <!--/.row-->
         <div class="row" id="pagination-controls">
         </div>
@@ -138,7 +136,6 @@
             } else if ($(this).hasClass('next')) {
                 currentPage = Math.min(currentPage + 1, totalPages);
             }
-
             updatePagination();
         });
 

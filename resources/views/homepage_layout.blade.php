@@ -29,19 +29,39 @@
                     <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="active"><input type="text" class="form-control" placeholder="Find Freelancer"></li>
                         <li class="dropdown megamenu-fw">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Brows</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Việc làm</a>
                             <ul class="dropdown-menu megamenu-content" role="menu">
                                 <li>
                                     <div class="row">
                                         <div class="col-menu col-md-3">
-                                            <h6 class="title">Main Pages</h6>
                                             <div class="content">
                                                 <ul class="menu-col">
-                                                    <li><a href="{{route('homepage.job-list')}}">Tìm công việc</a></li>
-                                                    <li><a href="{{route('homepage.applications')}}">Công việc bạn ứng
+                                                    <li><a href="{{route('homepage.job-list')}}">Tìm việc làm</a></li>
+                                                    <li><a href="{{route('homepage.applications')}}">Việc làm đã ứng
                                                             tuyển</a></li>
+                                                    <li><a href="">Việc làm phù hợp</a></li>
+                                                    <li><a href="">Danh sách công ty</a></li>
                                                 </ul>
                                             </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown megamenu-fw">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hồ sơ & CV</a>
+                            <ul class="dropdown-menu megamenu-content" role="menu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-menu col-md-3">
+
+                                            <div class="content">
+                                                <ul class="menu-col">
+                                                    <li><a href="{{route('homepage.cv')}}">CV của bạn</a></li>
+                                                </ul>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </li>

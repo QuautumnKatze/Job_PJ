@@ -34,7 +34,7 @@ class CollabController extends Controller
 
     public function showJobApplications($id)
     {
-        $applicationdata = applications::with(['cv.user.account'])->where('job_id', $id)->get();
+        $applicationdata = applications::where('job_id', $id)->get();
         // dd($applicationdata);
         $jobdata = jobs::where('job_id', $id)->first();
         // dd($accountdata);

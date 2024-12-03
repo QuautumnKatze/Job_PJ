@@ -136,7 +136,11 @@ Route::get('/home/user-profile/{id}', [HomeController::class, 'displayUserProfil
 Route::get('/home/login', [AuthController::class, 'showHomeLoginForm'])->name('homepage.login');
 Route::post('/home/login/submit', [AuthController::class, 'homeLogin'])->name('homepage.login.submit');
 Route::get('/home/logout', [AuthController::class, 'homeLogout'])->name('homepage.logout');
-
+Route::get('/home/register', [AuthController::class, 'showHomeRegisterForm'])->name('homepage.register');
+Route::post('/home/register/submit', [AuthController::class, 'homeRegister'])->name('homepage.register.submit');
+Route::post('/home/check-email', [AuthController::class, 'checkEmail'])->name('homepage.check.email');
+Route::post('/home/check-username', [AuthController::class, 'checkUsername'])->name('homepage.check.username');
+Route::post('/home/check-phone', [AuthController::class, 'checkHomePhone'])->name('homepage.check.phone');
 
 Route::prefix('home')->group(function () {
     Route::middleware('checkHomeLoggedIn')->group(function () {
@@ -146,6 +150,10 @@ Route::prefix('home')->group(function () {
         Route::get('/applications', [HomeController::class, 'showApplications'])->name('homepage.applications');
         Route::get('/applications/edit/{id}', [HomeController::class, 'editApplication'])->name('homepage.edit-apply');
         Route::post('/apply-update/{id}', [HomeController::class, 'applyUpdate'])->name('homepage.apply-update');
+        Route::get('/cv', [HomeController::class, 'showCVList'])->name('homepage.cv');
+        Route::get('/cv-detail/{id}', [HomeController::class, 'showCVDetail'])->name('homepage.cv-detail');
+
+
     });
 });
 

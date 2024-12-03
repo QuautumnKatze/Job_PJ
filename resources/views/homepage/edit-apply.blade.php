@@ -160,15 +160,6 @@
                             </div>
                         </section>
                     </div>
-
-                    <!-- <div id="sectionC" class="tab-pane fade">
-                        <h3>section C</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum sed diam ac
-                            fermentum. Mauris nec pellentesque neque. Cras nec diam euismod, congue sapien eu,
-                            fermentum
-                            libero. Vestibulum quis sem.</p>
-                    </div> -->
-
                 </div>
             </div>
         </div>

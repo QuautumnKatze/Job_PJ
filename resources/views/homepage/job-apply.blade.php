@@ -81,8 +81,50 @@
                                         <div class="col-md-12 col-sm-12">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" name="name" class="form-control" placeholder="Họ tên"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <select name="type" class="form-control input-lg">
+                                                    <option value="-1">Chọn loại tốt nghiệp cao đẳng/ đại học</option>
+                                                    <option value="0">Không tiết lộ</option>
+                                                    <option value="1">Xuất sắc</option>
+                                                    <option value="2">Giỏi</option>
+                                                    <option value="3">Khá</option>
+                                                    <option value="4">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" name="academy" class="form-control"
+                                                    placeholder="Trường đại học" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" name="email" class="form-control" placeholder="Email"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" name="phone" class="form-control"
+                                                    placeholder="Số điện thoại" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                                 <input type="text" name="description" class="form-control"
-                                                    placeholder="Lời nhắn">
+                                                    placeholder="Thư giới thiệu">
                                             </div>
                                         </div>
 
@@ -118,25 +160,67 @@
                                         method="POST">
                                         @csrf
                                         <h2 class="detail-title">Tải lên CV</h2>
-                                        <div class="col-md-10 col-sm-10">
+                                        <div class="col-lg-10 col-md-8 col-sm-6">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-file"></i></span>
                                                 <input type="text" id="cv_path" name="cv_path" class="form-control"
                                                     placeholder="CV" required="" readonly="">
                                             </div>
-
                                         </div>
-                                        <div class="col-lg-2 col-md-2 col-sm-2">
+                                        <div class="col-lg-2 col-md-4 col-sm-6">
                                             <button type="button" id="lfm" data-input="image" data-preview="holder"
                                                 class="btn bg-primary">Tải
                                                 lên từ thiết
                                                 bị</button>
                                         </div>
+
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" name="name" class="form-control" placeholder="Họ tên"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <select name="type" class="form-control input-lg">
+                                                    <option value="-1">Chọn loại tốt nghiệp cao đẳng/ đại học</option>
+                                                    <option value="0">Không tiết lộ</option>
+                                                    <option value="1">Xuất sắc</option>
+                                                    <option value="2">Giỏi</option>
+                                                    <option value="3">Khá</option>
+                                                    <option value="4">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" name="academy" class="form-control"
+                                                    placeholder="Trường đại học" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" name="email" class="form-control" placeholder="Email"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="text" name="phone" class="form-control"
+                                                    placeholder="Số điện thoại" required>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-12 col-sm-12">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                                 <input type="text" name="description" class="form-control"
-                                                    placeholder="Lời nhắn">
+                                                    placeholder="Thư giới thiệu">
                                             </div>
                                         </div>
 
@@ -249,5 +333,4 @@
         };
     });
 </script>
-
 @endsection

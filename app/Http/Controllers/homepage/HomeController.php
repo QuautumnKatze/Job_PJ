@@ -77,6 +77,11 @@ class HomeController extends Controller
             $createData = new applications();
             $createData->cv_id = $request->cv_id;
             $createData->job_id = $request->job_id;
+            $createData->name = $request->name;
+            $createData->type = $request->type;
+            $createData->academy = $request->academy;
+            $createData->email = $request->email;
+            $createData->phone = $request->phone;
             $createData->description = $request->description;
             $createData->status = 0;
             $createData->save();
@@ -93,6 +98,11 @@ class HomeController extends Controller
             $createApply = new applications();
             $createApply->cv_id = $createCV->cv_id;
             $createApply->job_id = $request->job_id;
+            $createApply->name = $request->name;
+            $createApply->type = $request->type;
+            $createApply->academy = $request->academy;
+            $createApply->email = $request->email;
+            $createApply->phone = $request->phone;
             $createApply->description = $request->description;
             $createApply->status = 0;
             $createApply->save();
@@ -118,6 +128,11 @@ class HomeController extends Controller
             $updateData = applications::find($id);
             $updateData->cv_id = $request->cv_id;
             $updateData->job_id = $request->job_id;
+            $updateData->name = $request->name;
+            $updateData->type = $request->type;
+            $updateData->academy = $request->academy;
+            $updateData->email = $request->email;
+            $updateData->phone = $request->phone;
             $updateData->description = $request->description;
             $updateData->status = 0;
             $updateData->save();
@@ -134,6 +149,11 @@ class HomeController extends Controller
             $updateApply = applications::find($id);
             $updateApply->cv_id = $createCV->cv_id;
             $updateApply->job_id = $request->job_id;
+            $updateApply->name = $request->name;
+            $updateApply->type = $request->type;
+            $updateApply->academy = $request->academy;
+            $updateApply->email = $request->email;
+            $updateApply->phone = $request->phone;
             $updateApply->description = $request->description;
             $updateApply->status = 0;
             $updateApply->save();
@@ -142,5 +162,17 @@ class HomeController extends Controller
                 'msg' => 'Sửa đơn ứng tuyển thành công'
             ]);
         }
+    }
+
+    function showCVList()
+    {
+        $cvdata = cv::where('user_id', Auth::user()->user->user_id)->get();
+        return view('homepage.cv-list', compact('cvdata'));
+    }
+
+    function showCVDetail($id)
+    {
+        $cvdata = cv::find($id)->first();
+        return view('homepage.cv-detail', compact('cvdata'));
     }
 }

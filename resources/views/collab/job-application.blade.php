@@ -125,9 +125,18 @@
                                             alt="" />
                                     </a>
                                 </div>
-                                <h4><a href="{{route('homepage.user-profile', $apply->cv->user->account_id)}}"
-                                        data-toggle="tooltip">{{$apply->cv->user->account->full_name}}</a> </h4>
-                                <span>SĐT: {{$apply->cv->user->phone}}</span>
+                                <h4>
+                                    <a href="{{route('homepage.user-profile', $apply->cv->user->account_id)}}"
+                                        data-toggle="tooltip">
+                                        {{$apply->name}}
+                                    </a>
+                                </h4>
+                                <div>
+                                    <span>SĐT: {{$apply->phone}}</span>
+                                </div>
+                                <div>
+                                    <span>Email: {{$apply->email}}</span>
+                                </div>
                                 <p class="two-lines">{{$apply->description}}</p>
                             </div>
                             <a href="{{route('collab.view-application', $apply->application_id)}}" title=""

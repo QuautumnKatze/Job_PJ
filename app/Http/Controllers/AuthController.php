@@ -266,6 +266,40 @@ class AuthController extends Controller
         return response()->json(['success' => 'Đăng ký thành công']);
     }
 
+    public function homeRegister(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_name' => 'required|unique:accounts|min:4',
+            'password' => 'required|min:3',
+            'full_name' => 'required|min:6',
+            'email' => 'required|unique:accounts|min:7',
+            'phone' => 'required|unique:recruiters|min:10',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        // Lưu vào bảng accounts
+        $accountData = new accounts();
+        $accountData->user_name = $request->user_name;
+        $accountData->password = md5($request->password);
+        $accountData->full_name = $request->full_name;
+        $accountData->email = $request->email;
+        $accountData->avatar = "/storage/photos/shares/avatar/default-avatar.jpg";
+        $accountData->role = "user";
+        $accountData->save();
+        // Lấy account_id của account vừa được tạo
+        $accountId = $accountData->account_id;
+        //Lưu vào bảng recruiters
+        $userData = new users();
+        $userData->account_id = $accountId;
+        $userData->gender = $request->gender;
+        $userData->phone = $request->phone;
+        $userData->status = 1;
+        $userData->save();
+        return response()->json(['success' => 'Đăng ký thành công']);
+    }
+
 
 
 }

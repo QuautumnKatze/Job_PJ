@@ -79,7 +79,7 @@
                             </div>
                             <div class="col-md-2 col-sm-2">
                                 <div class="brows-job-link">
-                                    <a href="job-apply-detail.html" class="btn btn-default">Apply Now</a>
+                                    <a href="job-apply-detail.html" class="btn btn-default">Xem</a>
                                 </div>
                             </div>
                         </div>
