@@ -22,4 +22,8 @@ class posts extends Model
     protected $primaryKey = "post_id";
     protected $table = "posts";
     public $timestamps = false;
+    public function admin()
+    {
+        return $this->belongsTo(admins::class, 'admin_id', 'admin_id');
+    }
 }

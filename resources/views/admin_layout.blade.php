@@ -181,6 +181,12 @@
                 <div data-i18n="Analytics">QL danh mục tuyển dụng</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a href="{{route('job.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">QL tin tuyển dụng</div>
+              </a>
+            </li>
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">

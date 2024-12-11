@@ -83,11 +83,12 @@
                 <div class="col-md-8 col-sm-8">
                     <div class="detail-pannel-footer-btn pull-right" id="button-zone">
                         @if ($applicationdata->status == 0)
-
-                            <a href="#" class="footer-btn red-btn" title="" id="rejectBtn"
-                                data-id="{{ $applicationdata->application_id }}">Từ chối</a>
-                            <a href="#" class="footer-btn blu-btn" title="" id="approveBtn"
-                                data-id="{{ $applicationdata->application_id }}">Phê duyệt</a>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#response"
+                                class="signin footer-btn grn-btn">Phản hồi</a>
+                            <!-- <a href="#" class="footer-btn red-btn" title="" id="rejectBtn"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    data-id="{{ $applicationdata->application_id }}">Từ chối</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                <a href="#" class="footer-btn blu-btn" title="" id="approveBtn"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    data-id="{{ $applicationdata->application_id }}">Phê duyệt</a> -->
                         @elseif ($applicationdata->status == 2)
                             <a href="javascript:void(0)" class="footer-btn red-btn" title="">Đã bị từ chối chối</a>
                         @elseif ($applicationdata->status == 1)
@@ -107,13 +108,179 @@
 
     </div>
 </section>
-<!-- Company Detail End -->
+<!-- modal -->
+<div class="modal fade" id="response" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="tab" role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#login" role="tab" data-toggle="tab">Chấp
+                                nhận</a>
+                        </li>
+                        <li role="presentation"><a href="#register" role="tab" data-toggle="tab">Từ chối</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content" id="myModalLabel2">
+                        <div role="tabpanel" class="tab-pane fade in active" id="login">
+                            <img src="assets/img/logo.png" class="img-responsive" alt="" />
+                            <div class="subscribe wow fadeInUp">
+                                <form class="form-inline" action="{{route('collab.approve')}}" id="approvalForm"
+                                    method="post">
+                                    @csrf
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <small>
+                                                    Hãy gửi một tin nhắn cho người đã ứng tuyển công việc của bạn!
+                                                </small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="content">Nội dung tin nhắn</label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group input-group-merge">
+                                                    <textarea class="form-control" name="response" id="accept-text"
+                                                        required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group input-group-merge">
+                                                    <input class="form-control" name="application_id" type="hidden"
+                                                        value="{{$applicationdata->application_id}}" required>
+                                                </div>
+                                            </div>
+                                            <div class="center">
+                                                <button type="submit" id="sendApprovalBtn" class="submit-btn"> Gửi
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane fade" id="register">
+                            <img src="assets/img/logo.png" class="img-responsive" alt="" />
+                            <form class="form-inline" action="{{route('collab.reject')}}" id="rejectForm" method="post">
+                                @csrf
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <small>
+                                                Hãy góp ý cho họ để cải thiện hồ sơ!
+                                            </small>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="content">Nội dung tin nhắn</label>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="input-group input-group-merge">
+                                                <textarea class="form-control" name="response" id="reject-text"
+                                                    required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="input-group input-group-merge">
+                                                <input class="form-control" name="application_id" type="hidden"
+                                                    value="{{$applicationdata->application_id}}" required>
+                                            </div>
+                                        </div>
+                                        <div class="center">
+                                            <button type="submit" id="sendRejectBtn" class="submit-btn"> Gửi
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script>
+    CKEDITOR.replace('accept-text', {
+        filebrowserImageBrowseUrl: '/file-manager?type=Images',
+        filebrowserBrowseUrl: '/file-manager?type=Files',
+        filebrowserUploadUrl: '/file-manager/upload?type=Images&_token={{ csrf_token() }}',
+        filebrowserImageUploadUrl: '/file-manager/upload?type=Images&_token={{ csrf_token() }}',
+        height: 400,
+        width: '100%'
+    });
+    CKEDITOR.replace('reject-text', {
+        filebrowserImageBrowseUrl: '/file-manager?type=Images',
+        filebrowserBrowseUrl: '/file-manager?type=Files',
+        filebrowserUploadUrl: '/file-manager/upload?type=Images&_token={{ csrf_token() }}',
+        filebrowserImageUploadUrl: '/file-manager/upload?type=Images&_token={{ csrf_token() }}',
+        height: 400,
+        width: '100%'
+    });
+
+    // $(document).ready(function () {
+    //     $('#sendApprovalBtn').click(function () {
+    //         let formData = $('#approvalForm').serialize();
+    //         $.ajax({
+    //             url: "{{ route('collab.approve') }}",
+    //             type: 'POST',
+    //             data: formData,
+    //             success: function (response) {
+    //                 if (response.success) {
+    //                     toastr.success(response.msg);
+    //                     setTimeout(() => {
+    //                         location.reload(); // Reload lại trang sau khi hoàn tất
+    //                     }, 2000);
+    //                 }
+    //             },
+    //             error: function (response) {
+    //                 if (response.error) {
+    //                     toastr.error(response.msg);
+    //                     setTimeout(() => {
+    //                         location.reload(); // Reload lại trang sau khi hoàn tất
+    //                     }, 2000);
+    //                 }
+    //             }
+    //         });
+    //     });
+    // });
+
+    // $(document).ready(function () {
+    //     $('#sendRejectBtn').click(function () {
+    //         let formData = $('#rejectForm').serialize();
+    //         $.ajax({
+    //             url: "{{ route('collab.reject') }}",
+    //             type: 'POST',
+    //             data: formData,
+    //             success: function (response) {
+    //                 if (response.success) {
+    //                     toastr.success(response.msg);
+    //                     setTimeout(() => {
+    //                         location.reload(); // Reload lại trang sau khi hoàn tất
+    //                     }, 2000);
+    //                 }
+    //             },
+    //             error: function (response) {
+    //                 if (response.error) {
+    //                     toastr.error(response.msg);
+    //                     setTimeout(() => {
+    //                         location.reload(); // Reload lại trang sau khi hoàn tất
+    //                     }, 2000);
+    //                 }
+    //             }
+    //         });
+    //     });
+    // });
+
+
+
     $(document).ready(function () {
         // Xử lý sự kiện khi nhấn nút chấp nhận
         $('#approveBtn').click(function () {

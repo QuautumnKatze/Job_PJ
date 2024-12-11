@@ -17,7 +17,6 @@
 </head>
 
 <body>
-    <div class="Loader"></div>
     <div class="wrapper">
         <nav class="navbar navbar-default navbar-fixed navbar-light white bootsnav">
             <div class="container">

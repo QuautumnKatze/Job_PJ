@@ -7,6 +7,7 @@ use App\Models\accounts;
 use App\Models\applications;
 use App\Models\cv;
 use App\Models\jobs;
+use App\Models\posts;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -174,5 +175,16 @@ class HomeController extends Controller
     {
         $cvdata = cv::find($id)->first();
         return view('homepage.cv-detail', compact('cvdata'));
+    }
+    function showBlogs()
+    {
+        $blogdata = posts::where('status', 1)->get();
+        return view('homepage.blog', compact('blogdata'));
+    }
+
+    function blogDetail($id)
+    {
+        $blogdata = posts::where('post_id', $id)->first();
+        return view('homepage.blog-detail', compact('blogdata'));
     }
 }

@@ -19,6 +19,7 @@ class applications extends Model
         "description",
         "status",
         "created_at",
+        "response",
     ];
     protected $primaryKey = "application_id";
     protected $table = "applications";

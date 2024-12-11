@@ -2,7 +2,7 @@
 @section("homepage_content")
 <style>
     .limit-text {
-        width: 15ch;
+        width: 10ch;
         /* Giới hạn chiều rộng theo 15 ký tự */
         white-space: nowrap;
         /* Ngăn xuống dòng */
@@ -10,6 +10,7 @@
         /* Ẩn phần nội dung vượt quá */
         text-overflow: ellipsis;
         /* Hiển thị dấu "..." nếu vượt quá */
+
     }
 </style>
 <div class="clearfix"></div>
@@ -31,7 +32,7 @@
                     <div class="col-md-3 no-padd">
                         <div class="input-group">
                             <select id="choose-city" class="form-control">
-                                <option>Choose City</option>
+                                <option>Chọn thành phố</option>
                                 <option>Chandigarh</option>
                                 <option>London</option>
                                 <option>England</option>
@@ -71,7 +72,7 @@
                             <h3><a href="{{route('homepage.job-detail', $job->job_id)}}">{{$job->job_name}}</a></h3>
                             <p><span>{{$job->recruiter->company_name}}</span></p>
                         </div>
-                        <div class="job-position"><span class="job-num">{{$job->location}}</span></div>
+                        <div class="job-position"><span class="job-num limit-text">{{$job->location}}</span></div>
                         <!-- <div class="brows-job-type"><span class="part-time">Part Time</span></div> -->
                         <ul class="grid-view-caption">
                             <li>

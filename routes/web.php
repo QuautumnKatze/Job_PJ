@@ -6,6 +6,7 @@ use \App\Http\Controllers\collab\CollabController;
 use App\Http\Controllers\collab\CollabJobController;
 use App\Http\Controllers\homepage\HomeController;
 use App\Http\Controllers\JobCategoryController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\RecruiterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -60,6 +61,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/job-categories/edit/{id}', [JobCategoryController::class, 'edit'])->name('jobC.edit');
         Route::delete('/job-categories/delete/{id}', [JobCategoryController::class, 'destroy'])->name('jobC.destroy');
         Route::post('/job-categories/update/{id}', [JobCategoryController::class, 'update'])->name('jobC.update');
+
+        //ADMIN Job
+        Route::get('/job', [JobController::class, 'index'])->name('job.index');
+        Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
+        Route::post('/job/store', [JobController::class, 'store'])->name('job.store');
+        Route::get('/job/edit/{id}', [JobController::class, 'edit'])->name('job.edit');
+        Route::delete('/job/delete/{id}', [JobController::class, 'destroy'])->name('job.destroy');
+        Route::post('/job/update/{id}', [JobController::class, 'update'])->name('job.update');
 
         // ADMIN Recruiter
         Route::get('/recruiter', [RecruiterController::class, 'index'])->name('recruiter.index');
@@ -141,6 +150,8 @@ Route::post('/home/register/submit', [AuthController::class, 'homeRegister'])->n
 Route::post('/home/check-email', [AuthController::class, 'checkEmail'])->name('homepage.check.email');
 Route::post('/home/check-username', [AuthController::class, 'checkUsername'])->name('homepage.check.username');
 Route::post('/home/check-phone', [AuthController::class, 'checkHomePhone'])->name('homepage.check.phone');
+Route::get('/blogs', [HomeController::class, 'showBlogs'])->name('homepage.blog');
+Route::get('/blog-detail/{id}', [HomeController::class, 'blogDetail'])->name('homepage.blog-detail');
 
 Route::prefix('home')->group(function () {
     Route::middleware('checkHomeLoggedIn')->group(function () {

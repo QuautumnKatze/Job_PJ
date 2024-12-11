@@ -17,7 +17,6 @@
 </head>
 
 <body>
-    <div class="Loader"></div>
     <div class="wrapper">
         <nav class="navbar navbar-default navbar-fixed navbar-light white bootsnav">
             <div class="container">
@@ -67,7 +66,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="{{route('homepage.blog')}}">Blog</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                         @if (Auth::check())

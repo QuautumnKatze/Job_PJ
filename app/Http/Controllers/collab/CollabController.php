@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\collab;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApplicationApproveMail;
+use App\Mail\ApplicationRejectMail;
 use App\Models\accounts;
 use App\Models\applications;
 use App\Models\cities;
@@ -11,6 +13,7 @@ use App\Models\job_categories;
 use App\Models\jobs;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Mail;
 
 class CollabController extends Controller
 {
@@ -64,14 +67,20 @@ class CollabController extends Controller
 
     public function approveApplication(Request $request)
     {
+        // Tìm application theo application_id
         $application = applications::find($request->application_id);
+
         if ($application) {
-            $application->status = 1; // Cập nhật status thành 1 (Chấp nhận)
+            // Cập nhật dữ liệu
+            $application->response = $request->response;
+            $application->status = 1; // Chấp nhận
             $application->save();
-            return response()->json(['success' => 'Đã phê duyệt đơn ứng tuyển.']);
+            // Gửi email với nội dung phản hồi
+            Mail::to('manhphuc2003@gmail.com')->send(new ApplicationApproveMail($application->response));
+
+            return redirect()->route('collab.view-application', $request->application_id);
         }
 
-        return response()->json(['error' => 'Không tìm thấy đơn ứng tuyển.'], 404);
     }
 
     public function rejectApplication(Request $request)
@@ -79,12 +88,15 @@ class CollabController extends Controller
         $application = applications::find($request->application_id);
 
         if ($application) {
-            $application->status = 2; // Cập nhật status thành 2 (Từ chối)
+            // Cập nhật dữ liệu
+            $application->response = $request->response;
+            $application->status = 2; // Chấp nhận
             $application->save();
-            return response()->json(['success' => 'Đã từ chối đơn ứng tuyển.']);
-        }
+            // Gửi email với nội dung phản hồi
+            Mail::to('manhphuc2003@gmail.com')->send(new ApplicationRejectMail($application->response));
 
-        return response()->json(['error' => 'Không tìm thấy đơn ứng tuyển.'], 404);
+            return redirect()->route('collab.view-application', $request->application_id);
+        }
     }
 
     /**
