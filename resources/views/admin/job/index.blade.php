@@ -10,11 +10,7 @@
                 <a class="btn btn-primary" href="{{route('job.create')}}">Thêm mới</a>
             </button>
         </div>
-
-
     </div>
-
-
     <!-- Striped Rows -->
     <div class="card">
         <div class="row">
@@ -67,10 +63,9 @@
                                                         <i class="bx bx-dots-vertical-rounded"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="{{route('jobC.edit', $item->job_category_id)}}"><i
+                                                        <a class="dropdown-item" href="{{route('job.edit', $item->job_id)}}"><i
                                                                 class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a>
-                                                        <button type="button" class="dropdown-item btn-delete"
-                                                            data-id="{{$item->job_category_id}}">
+                                                        <button type="button" class="dropdown-item btn-delete" data-id="{{$item->job_id}}">
                                                             <i class="bx bx-trash me-1"></i>
                                                             Xóa
                                                         </button>
@@ -113,7 +108,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/admin/job-categories/delete/" + id,
+                        url: "/admin/job/delete/" + id,
                         type: "DELETE",
                         data: {
                             _token: '{{ csrf_token() }}'

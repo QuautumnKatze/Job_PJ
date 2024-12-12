@@ -10,7 +10,7 @@
                 <a class="btn btn-primary" href="{{route('jobC.create')}}">Thêm mới</a>
             </button>
         </div>
-
+        <!-- Hiển thị -->
 
     </div>
 

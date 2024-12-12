@@ -14,6 +14,7 @@ class recruiters extends Authenticatable
         "account_id",
         "phone",
         "comparny_name",
+        "area_id",
         "city_id",
         "location",
         "introduction",
@@ -31,8 +32,13 @@ class recruiters extends Authenticatable
         return $this->belongsTo(accounts::class, 'account_id', 'account_id');
     }
 
+    public function area()
+    {
+        return $this->belongsTo(accounts::class, 'area_id', 'area_id');
+    }
+
     public function job()
     {
-        return $this->hasMany(jobs::class, 'user_id', 'user_id');
+        return $this->hasMany(jobs::class, 'recruiter_id', 'recruiter_id');
     }
 }

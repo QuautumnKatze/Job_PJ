@@ -1,16 +1,28 @@
 @extends("homepage_layout")
 @section("homepage_content")
 <style>
+    .grid-view {
+        height: 350px;
+        /* Cố định chiều cao tổng thể của thẻ */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* Bố trí nội dung hợp lý */
+        overflow: hidden;
+        /* Đảm bảo nội dung không vượt ra ngoài */
+    }
+
     .limit-text {
-        width: 10ch;
-        /* Giới hạn chiều rộng theo 15 ký tự */
+        display: inline-block;
+        /* Đặt nội dung thành khối nội tuyến */
         white-space: nowrap;
         /* Ngăn xuống dòng */
         overflow: hidden;
-        /* Ẩn phần nội dung vượt quá */
+        /* Ẩn nội dung vượt quá chiều rộng */
         text-overflow: ellipsis;
         /* Hiển thị dấu "..." nếu vượt quá */
-
+        max-width: 100%;
+        /* Đảm bảo nội dung không vượt chiều rộng khối chứa */
     }
 </style>
 <div class="clearfix"></div>

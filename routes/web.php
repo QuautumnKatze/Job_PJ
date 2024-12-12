@@ -8,6 +8,7 @@ use App\Http\Controllers\homepage\HomeController;
 use App\Http\Controllers\JobCategoryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RecruiterController;
+use App\Http\Controllers\StatisticController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostCategoryController;
@@ -36,7 +37,9 @@ Route::group(['prefix' => 'file-manager', 'middleware' => ['web', 'auth']], func
 Route::prefix('admin')->group(function () {
     Route::middleware('checkAdminLoggedIn')->group(function () {
         //Home
-        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin');
+        Route::get('/dashboard', [StatisticController::class, 'index'])->name('admin');
+        Route::get('/statistics', [StatisticController::class, 'index'])->name('admin.statistics');
+
 
         //ADMIN Post Category
         Route::get('/post-categories', [PostCategoryController::class, 'index'])->name('postC.index');

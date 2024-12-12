@@ -69,6 +69,7 @@ class HomeController extends Controller
     {
         $jobdata = jobs::where('job_id', $id)->first();
         $cvdata = cv::where('user_id', Auth::user()->user->user_id)->get();
+        
         return view('homepage.job-apply', compact('jobdata', 'cvdata'));
     }
 
