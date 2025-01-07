@@ -105,8 +105,6 @@
         <div class="row" id="list">
             @foreach ($applicationdata as $apply)
                 <article>
-
-
                     <div class="col-md-4 col-sm-4">
                         <div class="manage-cndt">
                             @if ($apply->status == 0)

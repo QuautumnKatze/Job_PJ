@@ -1,7 +1,7 @@
 @extends('admin_layout')
 
 @section('admin_content')
-<div class="container">
+<div class="container mt-3">
     <h1>Thống kê</h1>
 
     <!-- Thống kê nhà tuyển dụng tiềm năng -->

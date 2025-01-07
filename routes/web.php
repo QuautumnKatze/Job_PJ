@@ -153,8 +153,12 @@ Route::post('/home/register/submit', [AuthController::class, 'homeRegister'])->n
 Route::post('/home/check-email', [AuthController::class, 'checkEmail'])->name('homepage.check.email');
 Route::post('/home/check-username', [AuthController::class, 'checkUsername'])->name('homepage.check.username');
 Route::post('/home/check-phone', [AuthController::class, 'checkHomePhone'])->name('homepage.check.phone');
-Route::get('/blogs', [HomeController::class, 'showBlogs'])->name('homepage.blog');
-Route::get('/blog-detail/{id}', [HomeController::class, 'blogDetail'])->name('homepage.blog-detail');
+Route::get('/home/blogs', [HomeController::class, 'showBlogs'])->name('homepage.blog');
+Route::get('/home/blog-detail/{id}', [HomeController::class, 'blogDetail'])->name('homepage.blog-detail');
+Route::get('/home/search-jobs', [HomeController::class, 'searchJobs'])->name('homepage.search-jobs');
+Route::get('/home/job-category/{id}', [HomeController::class, 'jobByCategory'])->name('homepage.job.cate');
+
+
 
 Route::prefix('home')->group(function () {
     Route::middleware('checkHomeLoggedIn')->group(function () {
@@ -166,7 +170,10 @@ Route::prefix('home')->group(function () {
         Route::post('/apply-update/{id}', [HomeController::class, 'applyUpdate'])->name('homepage.apply-update');
         Route::get('/cv', [HomeController::class, 'showCVList'])->name('homepage.cv');
         Route::get('/cv-detail/{id}', [HomeController::class, 'showCVDetail'])->name('homepage.cv-detail');
-
+        Route::get('/account', [HomeController::class, 'account'])->name('homepage.account');
+        Route::post('/avatar-change', [HomeController::class, 'avatarChange'])->name('avatar.change');
+        Route::post('/profile/edit', [HomeController::class, 'editProfile'])->name('homepage.profile.edit');
+        Route::post('/password/change', [HomeController::class, 'changePassword'])->name('homepage.password.change');
 
     });
 });

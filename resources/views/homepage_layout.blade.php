@@ -58,6 +58,8 @@
                                             <div class="content">
                                                 <ul class="menu-col">
                                                     <li><a href="{{route('homepage.cv')}}">CV của bạn</a></li>
+                                                    <li><a href="{{route('homepage.account')}}">Tài khoản của bạn</a>
+                                                    </li>
                                                 </ul>
                                             </div>
 
@@ -67,6 +69,27 @@
                             </ul>
                         </li>
                         <li><a href="{{route('homepage.blog')}}">Blog</a></li>
+                        <li class="dropdown megamenu-fw">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ngành nghề</a>
+                            <ul class="dropdown-menu megamenu-content" role="menu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-menu col-md-3">
+
+                                            <div class="content">
+                                                <ul class="menu-col">
+                                                    @foreach ($jobcate as $item)
+                                                        <li><a href="{{route('homepage.job.cate', $item->job_category_id)}}">{{$item->job_category_name}}</a></li>
+                                                    @endforeach
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                         @if (Auth::check())

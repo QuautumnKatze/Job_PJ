@@ -101,6 +101,38 @@
                 </div>
             @endforeach
         </div>
+        <div class="row">
+            <div class="main-heading">
+                <h2>Tuyển dụng <span>có nhiều lượt xem</span></h2>
+            </div>
+        </div>
+        <div class="row extra-mrg">
+            @foreach ($viewjob as $job)
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="grid-view brows-job-list">
+                        <div class="brows-job-company-img"><img src="{{asset($job->recruiter->account->avatar)}}"
+                                class=" img-responsive" alt="" /></div>
+                        <div class="brows-job-position">
+                            <h3><a href="{{route('homepage.job-detail', $job->job_id)}}">{{$job->job_name}}</a></h3>
+                            <p><span>{{$job->recruiter->company_name}}</span></p>
+                        </div>
+                        <div class="job-position"><span class="job-num limit-text">{{$job->location}}</span></div>
+                        <!-- <div class="brows-job-type"><span class="part-time">Part Time</span></div> -->
+                        <ul class="grid-view-caption">
+                            <li>
+                                <div class="brows-job-location">
+                                    <p class="limit-text"><i class="fa fa-users"></i>{{$job->quantity}} vị trí</p>
+                                </div>
+                            </li>
+                            <li>
+                                <p class="single-line"><span class="brows-job-sallery"><i
+                                            class="fa fa-money"></i>{{$job->salary}}</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 </section>
 <div class="clearfix"></div>

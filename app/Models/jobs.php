@@ -18,7 +18,10 @@ class jobs extends Model
         "quantity",
         "content",
         "recruiter_id",
-        "status"
+        "status",
+        "create_at",
+        "expired_at",
+        "views"
     ];
     protected $primaryKey = "job_id";
     protected $table = "jobs";

@@ -52,7 +52,7 @@ class JobCategoryController extends Controller
     public function edit($id)
     {
         $jobcategorydata = job_categories::find($id);
-        return view(view: "admin.jobcategory.edit", compact("jobcategorydata"));
+        return view("admin.jobcategory.edit", compact("jobcategorydata"));
     }
 
     /**
